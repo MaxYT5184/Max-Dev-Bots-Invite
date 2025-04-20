@@ -163,11 +163,11 @@ nav {
 form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
 label {
     font-size: 16px;
-    margin-top: 15px;
     font-weight: bold;
 }
 
@@ -179,7 +179,6 @@ input, textarea {
     background: rgba(255, 255, 255, 0.2);
     color: white;
     font-size: 14px;
-    margin-top: 5px;
 }
 
 textarea {
@@ -192,7 +191,6 @@ input:focus, textarea:focus {
 }
 
 button {
-    margin-top: 20px;
     padding: 12px;
     background: #ffcc00;
     border: none;
