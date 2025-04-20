@@ -1,23 +1,55 @@
+/* General Styles */
 body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(45deg, #2c3e50, #3498db);
     color: white;
     text-align: center;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Developer Section */
+.creator-section {
+    text-align: center;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    width: 80%;
+    margin-top: 40px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.creator-section:hover {
+    transform: scale(1.02);
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Bots Section */
 .bot-container {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    padding: 50px;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 30px;
 }
 
 .bot-card {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     padding: 20px;
     border-radius: 15px;
     width: 300px;
     transition: transform 0.3s ease-in-out;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
 }
 
 .bot-card:hover {
@@ -31,16 +63,6 @@ body {
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 }
 
-.bot-bio {
-    font-size: 14px;
-    margin: 10px 0;
-}
-
-.dev-info {
-    font-weight: bold;
-    font-size: 12px;
-}
-
 .invite-btn {
     display: inline-block;
     background: #ffcc00;
@@ -48,62 +70,34 @@ body {
     padding: 10px;
     border-radius: 5px;
     text-decoration: none;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .invite-btn:hover {
     background: #ff9900;
+    transform: scale(1.1);
 }
 
-.creator-section {
-    margin-top: 50px;
-    text-align: center;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-}
-
-.profile-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-}
-
-.bio {
-    font-size: 14px;
-    margin: 10px 0;
-}
-
-.discord-btn {
-    display: inline-block;
-    background: #7289DA;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background 0.3s ease;
-}
-
-.discord-btn:hover {
-    background: #5a6bbf;
-}
-
+/* Footer */
 footer {
+    width: 100%;
     text-align: center;
-    padding: 20px;
+    padding: 15px;
     background: rgba(255, 255, 255, 0.1);
     font-size: 14px;
-    margin-top: 50px;
+    margin-top: auto;
+    position: relative;
+    bottom: 0;
+    box-shadow: 0px -2px 10px rgba(255, 255, 255, 0.2);
 }
 
 .discord-footer-img {
     width: 40px;
     height: 40px;
-    margin-top: 10px;
+    margin-top: 5px;
     transition: transform 0.3s ease-in-out;
 }
 
 .discord-footer-img:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
