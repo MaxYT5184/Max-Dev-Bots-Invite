@@ -7,27 +7,29 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Report an Issue</h1>
-    <p>Tell us what you want to report.</p>
+    <div class="report-container">
+        <h1>Report an Issue</h1>
+        <p>Please provide detailed information about the issue you're reporting.</p>
 
-    <form id="reportForm">
-        <label for="username">Discord Username:</label>
-        <input type="text" id="username" required>
+        <form id="reportForm">
+            <label for="username">Discord Username:</label>
+            <input type="text" id="username" placeholder="Enter your Discord username" required>
 
-        <label for="displayName">Discord Display Name:</label>
-        <input type="text" id="displayName" required>
+            <label for="displayName">Discord Display Name:</label>
+            <input type="text" id="displayName" placeholder="Enter your display name" required>
 
-        <label for="dateTime">Date & Time:</label>
-        <input type="datetime-local" id="dateTime" required>
+            <label for="dateTime">Date & Time:</label>
+            <input type="datetime-local" id="dateTime" required>
 
-        <label for="message">Message:</label>
-        <textarea id="message" required></textarea>
+            <label for="message">Message:</label>
+            <textarea id="message" placeholder="Describe the issue..." required></textarea>
 
-        <label for="proofImage">Proof Image (URL):</label>
-        <input type="url" id="proofImage">
+            <label for="proofImage">Proof Image (URL):</label>
+            <input type="url" id="proofImage" placeholder="Paste image URL (optional)">
 
-        <button type="submit">Submit Report</button>
-    </form>
+            <button type="submit">Submit Report</button>
+        </form>
+    </div>
 
     <script src="report.js"></script>
 </body>
