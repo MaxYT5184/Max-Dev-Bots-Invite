@@ -88,3 +88,22 @@ body {
 .discord-btn:hover {
     background: #5a6bbf;
 }
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+    margin-top: 50px;
+}
+
+.discord-footer-img {
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.discord-footer-img:hover {
+    transform: scale(1.1);
+}
