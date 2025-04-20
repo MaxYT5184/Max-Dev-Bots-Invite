@@ -1,0 +1,56 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(45deg, #2c3e50, #3498db);
+    color: white;
+    text-align: center;
+}
+
+.bot-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 50px;
+}
+
+.bot-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    width: 300px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.bot-card:hover {
+    transform: scale(1.05);
+}
+
+.bot-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+.bot-bio {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.dev-info {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.invite-btn {
+    display: inline-block;
+    background: #ffcc00;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.invite-btn:hover {
+    background: #ff9900;
+}
