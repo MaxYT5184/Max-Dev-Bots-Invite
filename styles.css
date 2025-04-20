@@ -91,6 +91,17 @@ footer {
     box-shadow: 0px -2px 10px rgba(255, 255, 255, 0.2);
 }
 
+footer a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #ffcc00;
+}
+
 .discord-footer-img {
     width: 40px;
     height: 40px;
@@ -101,3 +112,4 @@ footer {
 .discord-footer-img:hover {
     transform: scale(1.2);
 }
+
