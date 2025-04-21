@@ -1,184 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>DefendaBot Announcement Builder</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Announcement Builder</title>
   <style>
-    body { font-family: sans-serif; background: #2c2f33; color: white; padding: 20px; }
-    input, textarea, select, button { width: 100%; margin: 5px 0; padding: 8px; border-radius: 4px; }
-    .section { margin-bottom: 20px; }
-    .preview { background: #23272a; padding: 15px; border-radius: 10px; white-space: pre-wrap; }
-    .button { background: #7289da; color: white; cursor: pointer; }
-    .hidden { display: none; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      max-width: 600px;
+      width: 100%;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 8px;
+    }
+    button {
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 0.2rem 0;
+    }
+    button:hover {
+      transform: scale(1.05);
+      background-color: #45a049;
+    }
+    .preview {
+      border-left: 10px solid #f00;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 10px;
+    }
+    .buttons-area {
+      margin-top: 1rem;
+    }
+    .hidden {
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>📢 Advanced Announcements — DefendaBot Community</h1>
-  <div class="section">
-    <label>Enter Passcode:</label>
-    <input type="password" id="passcodeInput" placeholder="Enter passcode...">
-    <button class="button" onclick="checkPasscode()">Unlock Tool</button>
+  <h1>DefendaBot Advanced Announcements</h1>
+  <div class="container">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" rows="4"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="footer">Custom Footer</label>
+      <input type="text" id="footer">
+    </div>
+    <div class="form-group">
+      <label for="thumbnail">Thumbnail URL</label>
+      <input type="text" id="thumbnail">
+    </div>
+    <div class="form-group">
+      <label for="color">Side Color</label>
+      <select id="color">
+        <option value="#f00">Red</option>
+        <option value="#00f">Blue</option>
+        <option value="#0ff">Cyan</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Add Buttons?</label>
+      <select id="show-buttons">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+    </div>
+    <div id="buttons-container" class="buttons-area hidden"></div>
+    <button onclick="sendMessage()">Send Message</button>
+    <button onclick="loadTemplate('8903321')">Load Template 8903321</button>
+    <button onclick="loadTemplate('DEF1234')">Load Template DEF1234</button>
+    <button onclick="loadTemplate('FUN5678')">Load Template FUN5678</button>
+    <div class="preview" id="preview"></div>
   </div>
-
-  <div id="announcementTool" class="hidden">
-    <div class="section">
-      <label>Title:</label>
-      <input id="title">
-
-      <label>Description:</label>
-      <textarea id="desc" placeholder="Use emojis like :tada: 🎉 or Markdown"></textarea>
-
-      <label>Date:</label>
-      <input type="date" id="date">
-
-      <label>Time:</label>
-      <input type="time" id="time">
-
-      <label>Footer (Optional):</label>
-      <input id="footer" placeholder="Custom footer text...">
-
-      <label>Dropdown Menu (Optional):</label>
-      <textarea id="dropdownItems" placeholder="One item per line (Format: Label|Value)"></textarea>
-
-      <label>Buttons:</label>
-      <div id="buttonsContainer"></div>
-      <button class="button" onclick="addButton()">+ Add Button</button>
-    </div>
-
-    <div class="section">
-      <label>Raw JSON (editable):</label>
-      <textarea id="jsonEditor" rows="10"></textarea>
-    </div>
-
-    <div class="section">
-      <button class="button" onclick="sendWebhook()">🚀 Send Announcement</button>
-      <button class="button" onclick="previewCard()">👁️ Preview Announcement</button>
-    </div>
-
-    <div class="preview" id="previewBox"></div>
-  </div>
-
   <script>
-    const PASSCODE = "MaxDevement101";
-    const WEBHOOK_URL = "https://discord.com/api/webhooks/1363874212065841192/Bk9upnlnAu0xLxNOXy8ozB9XUIm9kVuyqhosRxOp1cI79BFk53c_K9665vP0qax9Sr-E";
+    const webhookURL = "https://discord.com/api/webhooks/1363874212065841192/Bk9upnlnAu0xLxNOXy8ozB9XUIm9kVuyqhosRxOp1cI79BFk53c_K9665vP0qax9Sr-E";
+    const buttonsContainer = document.getElementById('buttons-container');
+    const showButtonsSelect = document.getElementById('show-buttons');
 
-    function checkPasscode() {
-      const input = document.getElementById("passcodeInput").value;
-      if (input === PASSCODE) {
-        document.getElementById("announcementTool").classList.remove("hidden");
-        alert("Welcome to the DefendaBot Announcement Builder!");
+    showButtonsSelect.addEventListener('change', () => {
+      if (showButtonsSelect.value === 'yes') {
+        buttonsContainer.classList.remove('hidden');
+        generateButtonInputs();
       } else {
-        alert("Incorrect passcode.");
+        buttonsContainer.classList.add('hidden');
+        buttonsContainer.innerHTML = '';
+      }
+    });
+
+    function generateButtonInputs() {
+      for (let i = 0; i < 20; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = `Button ${i + 1} Label | URL | Color`;
+        input.classList.add('form-group');
+        buttonsContainer.appendChild(input);
       }
     }
 
-    function addButton() {
-      const container = document.getElementById("buttonsContainer");
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <input placeholder="Button Label">
-        <input placeholder="Button URL">
-      `;
-      container.appendChild(div);
-    }
+    function sendMessage() {
+      const title = document.getElementById('title').value;
+      const description = document.getElementById('description').value;
+      const footer = document.getElementById('footer').value;
+      const color = document.getElementById('color').value;
+      const thumbnail = document.getElementById('thumbnail').value;
+      const buttonInputs = buttonsContainer.querySelectorAll('input');
 
-    function buildComponents() {
-      const btns = document.querySelectorAll("#buttonsContainer div");
-      const dropdownText = document.getElementById("dropdownItems").value.trim();
       const components = [];
       const buttons = [];
-
-      btns.forEach(div => {
-        const inputs = div.querySelectorAll("input");
-        if (inputs[0].value && inputs[1].value) {
+      buttonInputs.forEach(input => {
+        const parts = input.value.split('|');
+        if (parts.length >= 2) {
           buttons.push({
             type: 2,
-            style: 5,
-            label: inputs[0].value,
-            url: inputs[1].value
+            style: parts[2]?.trim().toLowerCase() === 'blue' ? 1 : parts[2]?.trim().toLowerCase() === 'green' ? 3 : 5,
+            label: parts[0].trim(),
+            url: parts[1].trim(),
           });
         }
       });
-
-      if (buttons.length) {
+      if (buttons.length > 0) {
         components.push({ type: 1, components: buttons });
       }
 
-      if (dropdownText) {
-        const options = dropdownText.split("\n").map(line => {
-          const [label, value] = line.split("|");
-          return { label: label.trim(), value: value.trim() };
-        });
-
-        components.push({
-          type: 1,
-          components: [{
-            type: 3,
-            custom_id: "dropdown_1",
-            placeholder: "Choose an option",
-            options
-          }]
-        });
-      }
-
-      return components;
-    }
-
-    function buildEmbed() {
-      const title = document.getElementById("title").value;
-      const desc = document.getElementById("desc").value;
-      const date = document.getElementById("date").value;
-      const time = document.getElementById("time").value;
-      const footer = document.getElementById("footer").value;
-      return {
-        title: title,
-        description: desc + (date && time ? `\n📅 Scheduled for: ${date} ${time}` : ""),
-        color: 0x7289da,
-        footer: footer ? { text: footer } : undefined
-      };
-    }
-
-    function sendWebhook() {
       const payload = {
-        embeds: [buildEmbed()],
-        components: buildComponents()
+        embeds: [{
+          title,
+          description,
+          footer: { text: footer },
+          thumbnail: { url: thumbnail },
+          color: parseInt(color.replace('#',''), 16)
+        }],
+        components
       };
 
-      fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       }).then(res => {
-        if (res.ok) alert("✅ Announcement sent!");
-        else alert("❌ Failed to send.");
+        if (res.ok) alert("Announcement Sent!");
+        else alert("Failed to send!");
       });
     }
 
-    function previewCard() {
-      const embed = buildEmbed();
-      const previewBox = document.getElementById("previewBox");
-      let preview = `**${embed.title}**\n${embed.description}\n\n`;
-
-      if (embed.footer) preview += `🔻 ${embed.footer.text}\n\n`;
-
-      const buttons = document.querySelectorAll("#buttonsContainer div");
-      buttons.forEach(div => {
-        const inputs = div.querySelectorAll("input");
-        if (inputs[0].value && inputs[1].value) {
-          preview += `🔘 [${inputs[0].value}](${inputs[1].value})\n`;
-        }
-      });
-
-      const dropdownText = document.getElementById("dropdownItems").value.trim();
-      if (dropdownText) {
-        preview += `\n📂 Dropdown Options:\n`;
-        dropdownText.split("\n").forEach(line => {
-          const [label, value] = line.split("|");
-          if (label && value) preview += ` - ${label} (${value})\n`;
-        });
+    function loadTemplate(code) {
+      if (code === '8903321') {
+        document.getElementById('title').value = '🚨 Server Update';
+        document.getElementById('description').value = 'We are pushing a major patch today. Stay tuned!';
+        document.getElementById('footer').value = 'DefendaBot Admin';
+      } else if (code === 'DEF1234') {
+        document.getElementById('title').value = '💬 Community Event';
+        document.getElementById('description').value = 'Join us Friday at 7PM for games and giveaways!';
+        document.getElementById('footer').value = 'DefendaBot Community';
+      } else if (code === 'FUN5678') {
+        document.getElementById('title').value = '🎉 Fun Weekend';
+        document.getElementById('description').value = 'Check out the new fun challenges every hour!';
+        document.getElementById('footer').value = 'Fun Team';
       }
-
-      previewBox.textContent = preview;
     }
   </script>
 </body>
