@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Purchase DefendaBot</title>
+  <link rel="stylesheet" href="buybot.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Get Access to DefendaBot</h1>
+    <p>Unlock powerful protection and moderation tools for your Discord server.</p>
+    
+    <div class="card">
+      <h2>How to Purchase</h2>
+      <ol>
+        <li>Send <strong>$5</strong> via Cash App to <span class="cash-tag">$YourCashTag</span></li>
+        <li>Include your <strong>Discord username</strong> and <strong>server ID</strong> in the note</li>
+        <li>Click "I Paid" below to get your bot invite link</li>
+      </ol>
+      <a href="https://cash.app/$YourCashTag" target="_blank" class="pay-btn">Pay with Cash App</a>
+      <button onclick="confirmPayment()" class="paid-btn">I Paid, Invite Bot</button>
+    </div>
+  </div>
+
+  <script>
+    function confirmPayment() {
+      // Redirect to your bot's invite link
+      window.location.href = "https://discord.com/oauth2/authorize?client_id=1362211889924280591";
+    }
+  </script>
+</body>
+</html>
