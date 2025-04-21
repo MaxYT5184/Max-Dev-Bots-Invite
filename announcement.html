@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DefendaBot Announcement Builder</title>
+  <style>
+    body { font-family: sans-serif; background: #2c2f33; color: white; padding: 20px; }
+    input, textarea, select, button { width: 100%; margin: 5px 0; padding: 8px; border-radius: 4px; }
+    .section { margin-bottom: 20px; }
+    .preview { background: #23272a; padding: 15px; border-radius: 10px; white-space: pre-wrap; }
+    .button { background: #7289da; color: white; cursor: pointer; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h1>📢 Advanced Announcements — DefendaBot Community</h1>
+  <div class="section">
+    <label>Enter Passcode:</label>
+    <input type="password" id="passcodeInput" placeholder="Enter passcode...">
+    <button class="button" onclick="checkPasscode()">Unlock Tool</button>
+  </div>
+
+  <div id="announcementTool" class="hidden">
+    <div class="section">
+      <label>Title:</label>
+      <input id="title">
+
+      <label>Description:</label>
+      <textarea id="desc" placeholder="Use emojis like :tada: 🎉 or Markdown"></textarea>
+
+      <label>Date:</label>
+      <input type="date" id="date">
+
+      <label>Time:</label>
+      <input type="time" id="time">
+
+      <label>Footer (Optional):</label>
+      <input id="footer" placeholder="Custom footer text...">
+
+      <label>Dropdown Menu (Optional):</label>
+      <textarea id="dropdownItems" placeholder="One item per line (Format: Label|Value)"></textarea>
+
+      <label>Buttons:</label>
+      <div id="buttonsContainer"></div>
+      <button class="button" onclick="addButton()">+ Add Button</button>
+    </div>
+
+    <div class="section">
+      <label>Raw JSON (editable):</label>
+      <textarea id="jsonEditor" rows="10"></textarea>
+    </div>
+
+    <div class="section">
+      <button class="button" onclick="sendWebhook()">🚀 Send Announcement</button>
+      <button class="button" onclick="previewCard()">👁️ Preview Announcement</button>
+    </div>
+
+    <div class="preview" id="previewBox"></div>
+  </div>
+
+  <script>
+    const PASSCODE = "MaxDevement101";
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1363874212065841192/Bk9upnlnAu0xLxNOXy8ozB9XUIm9kVuyqhosRxOp1cI79BFk53c_K9665vP0qax9Sr-E";
+
+    function checkPasscode() {
+      const input = document.getElementById("passcodeInput").value;
+      if (input === PASSCODE) {
+        document.getElementById("announcementTool").classList.remove("hidden");
+        alert("Welcome to the DefendaBot Announcement Builder!");
+      } else {
+        alert("Incorrect passcode.");
+      }
+    }
+
+    function addButton() {
+      const container = document.getElementById("buttonsContainer");
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <input placeholder="Button Label">
+        <input placeholder="Button URL">
+      `;
+      container.appendChild(div);
+    }
+
+    function buildComponents() {
+      const btns = document.querySelectorAll("#buttonsContainer div");
+      const dropdownText = document.getElementById("dropdownItems").value.trim();
+      const components = [];
+      const buttons = [];
+
+      btns.forEach(div => {
+        const inputs = div.querySelectorAll("input");
+        if (inputs[0].value && inputs[1].value) {
+          buttons.push({
+            type: 2,
+            style: 5,
+            label: inputs[0].value,
+            url: inputs[1].value
+          });
+        }
+      });
+
+      if (buttons.length) {
+        components.push({ type: 1, components: buttons });
+      }
+
+      if (dropdownText) {
+        const options = dropdownText.split("\n").map(line => {
+          const [label, value] = line.split("|");
+          return { label: label.trim(), value: value.trim() };
+        });
+
+        components.push({
+          type: 1,
+          components: [{
+            type: 3,
+            custom_id: "dropdown_1",
+            placeholder: "Choose an option",
+            options
+          }]
+        });
+      }
+
+      return components;
+    }
+
+    function buildEmbed() {
+      const title = document.getElementById("title").value;
+      const desc = document.getElementById("desc").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const footer = document.getElementById("footer").value;
+      return {
+        title: title,
+        description: desc + (date && time ? `\n📅 Scheduled for: ${date} ${time}` : ""),
+        color: 0x7289da,
+        footer: footer ? { text: footer } : undefined
+      };
+    }
+
+    function sendWebhook() {
+      const payload = {
+        embeds: [buildEmbed()],
+        components: buildComponents()
+      };
+
+      fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(res => {
+        if (res.ok) alert("✅ Announcement sent!");
+        else alert("❌ Failed to send.");
+      });
+    }
+
+    function previewCard() {
+      const embed = buildEmbed();
+      const previewBox = document.getElementById("previewBox");
+      let preview = `**${embed.title}**\n${embed.description}\n\n`;
+
+      if (embed.footer) preview += `🔻 ${embed.footer.text}\n\n`;
+
+      const buttons = document.querySelectorAll("#buttonsContainer div");
+      buttons.forEach(div => {
+        const inputs = div.querySelectorAll("input");
+        if (inputs[0].value && inputs[1].value) {
+          preview += `🔘 [${inputs[0].value}](${inputs[1].value})\n`;
+        }
+      });
+
+      const dropdownText = document.getElementById("dropdownItems").value.trim();
+      if (dropdownText) {
+        preview += `\n📂 Dropdown Options:\n`;
+        dropdownText.split("\n").forEach(line => {
+          const [label, value] = line.split("|");
+          if (label && value) preview += ` - ${label} (${value})\n`;
+        });
+      }
+
+      previewBox.textContent = preview;
+    }
+  </script>
+</body>
+</html>
