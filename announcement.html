@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Advanced Announcement Builder</title>
+  <title>DefendaBot Announcements</title>
   <style>
     body {
       margin: 0;
@@ -18,6 +18,7 @@
     }
     h1 {
       margin-bottom: 1rem;
+      text-align: center;
     }
     .container {
       background: rgba(0, 0, 0, 0.5);
@@ -26,6 +27,11 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
       max-width: 600px;
       width: 100%;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .form-group {
       margin-bottom: 1rem;
@@ -49,7 +55,7 @@
       color: white;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin: 0.2rem 0;
+      margin: 0.5rem 0;
     }
     button:hover {
       transform: scale(1.05);
@@ -62,12 +68,6 @@
       margin-top: 1rem;
       border-radius: 10px;
     }
-    .buttons-area {
-      margin-top: 1rem;
-    }
-    .hidden {
-      display: none;
-    }
     @media (max-width: 600px) {
       .container {
         padding: 1rem;
@@ -76,7 +76,7 @@
   </style>
 </head>
 <body>
-  <h1>DefendaBot Advanced Announcements</h1>
+  <h1>DefendaBot Announcements</h1>
   <div class="container">
     <div class="form-group">
       <label for="title">Title</label>
@@ -102,105 +102,46 @@
         <option value="#0ff">Cyan</option>
       </select>
     </div>
-    <div class="form-group">
-      <label>Add Buttons?</label>
-      <select id="show-buttons">
-        <option value="no">No</option>
-        <option value="yes">Yes</option>
-      </select>
-    </div>
-    <div id="buttons-container" class="buttons-area hidden"></div>
     <button onclick="sendMessage()">Send Message</button>
-    <button onclick="loadTemplate('8903321')">Load Template 8903321</button>
-    <button onclick="loadTemplate('DEF1234')">Load Template DEF1234</button>
-    <button onclick="loadTemplate('FUN5678')">Load Template FUN5678</button>
     <div class="preview" id="preview"></div>
   </div>
+
   <script>
     const webhookURL = "https://discord.com/api/webhooks/1363874212065841192/Bk9upnlnAu0xLxNOXy8ozB9XUIm9kVuyqhosRxOp1cI79BFk53c_K9665vP0qax9Sr-E";
-    const buttonsContainer = document.getElementById('buttons-container');
-    const showButtonsSelect = document.getElementById('show-buttons');
-
-    showButtonsSelect.addEventListener('change', () => {
-      if (showButtonsSelect.value === 'yes') {
-        buttonsContainer.classList.remove('hidden');
-        generateButtonInputs();
-      } else {
-        buttonsContainer.classList.add('hidden');
-        buttonsContainer.innerHTML = '';
-      }
-    });
-
-    function generateButtonInputs() {
-      for (let i = 0; i < 20; i++) {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.placeholder = `Button ${i + 1} Label | URL | Color`;
-        input.classList.add('form-group');
-        buttonsContainer.appendChild(input);
-      }
-    }
 
     function sendMessage() {
       const title = document.getElementById('title').value;
       const description = document.getElementById('description').value;
       const footer = document.getElementById('footer').value;
-      const color = document.getElementById('color').value;
       const thumbnail = document.getElementById('thumbnail').value;
-      const buttonInputs = buttonsContainer.querySelectorAll('input');
+      const color = document.getElementById('color').value;
 
-      const components = [];
-      const buttons = [];
-      buttonInputs.forEach(input => {
-        const parts = input.value.split('|');
-        if (parts.length >= 2) {
-          buttons.push({
-            type: 2,
-            style: parts[2]?.trim().toLowerCase() === 'blue' ? 1 : parts[2]?.trim().toLowerCase() === 'green' ? 3 : 5,
-            label: parts[0].trim(),
-            url: parts[1].trim(),
-          });
-        }
-      });
-      if (buttons.length > 0) {
-        components.push({ type: 1, components: buttons });
-      }
-
-      const payload = {
-        embeds: [{
-          title,
-          description,
-          footer: { text: footer },
-          thumbnail: { url: thumbnail },
-          color: parseInt(color.replace('#',''), 16)
-        }],
-        components
+      const embed = {
+        title,
+        description,
+        footer: { text: footer },
+        thumbnail: { url: thumbnail },
+        color: parseInt(color.replace('#',''), 16)
       };
 
+      const payload = {
+        embeds: [embed]
+      };
+
+      // Show preview
+      const previewBox = document.getElementById('preview');
+      previewBox.style.borderLeftColor = color;
+      previewBox.innerHTML = `<strong>${title}</strong><br>${description.replace(/\n/g, '<br>')}<br><small>${footer}</small>`;
+
+      // Try to send webhook - will likely fail due to CORS
       fetch(webhookURL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       }).then(res => {
         if (res.ok) alert("Announcement Sent!");
-        else alert("Failed to send!");
-      });
-    }
-
-    function loadTemplate(code) {
-      if (code === '8903321') {
-        document.getElementById('title').value = '🚨 Server Update';
-        document.getElementById('description').value = 'We are pushing a major patch today. Stay tuned!';
-        document.getElementById('footer').value = 'DefendaBot Admin';
-      } else if (code === 'DEF1234') {
-        document.getElementById('title').value = '💬 Community Event';
-        document.getElementById('description').value = 'Join us Friday at 7PM for games and giveaways!';
-        document.getElementById('footer').value = 'DefendaBot Community';
-      } else if (code === 'FUN5678') {
-        document.getElementById('title').value = '🎉 Fun Weekend';
-        document.getElementById('description').value = 'Check out the new fun challenges every hour!';
-        document.getElementById('footer').value = 'Fun Team';
-      }
+        else alert("Failed to send! (Likely CORS issue on GitHub Pages)");
+      }).catch(() => alert("Error sending message."));
     }
   </script>
 </body>
