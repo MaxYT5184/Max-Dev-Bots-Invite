@@ -10,24 +10,58 @@
   <div class="container">
     <h1>Get Access to DefendaBot</h1>
     <p>Unlock powerful protection and moderation tools for your Discord server.</p>
-    
+
     <div class="card">
       <h2>How to Purchase</h2>
       <ol>
         <li>Send <strong>$5</strong> via Cash App to <span class="cash-tag">$YourCashTag</span></li>
-        <li>Include your <strong>Discord username</strong> and <strong>server ID</strong> in the note</li>
-        <li>Click "I Paid" below to get your bot invite link</li>
+        <li>Fill out the form below with your payment details</li>
+        <li>We’ll verify your payment and send the bot invite to your email or Discord</li>
       </ol>
+
       <a href="https://cash.app/$YourCashTag" target="_blank" class="pay-btn">Pay with Cash App</a>
-      <button onclick="confirmPayment()" class="paid-btn">I Paid, Invite Bot</button>
+
+      <form id="paymentForm">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <input type="text" id="discord" placeholder="Discord Username (e.g., MaxYT#1234)" required />
+        <input type="text" id="server" placeholder="Server ID" required />
+        <button type="submit" class="paid-btn">I Paid</button>
+      </form>
+
+      <p id="confirmationMsg" style="display:none; margin-top: 10px; color: lightgreen;">
+        Thanks! Your info has been sent. We’ll get back to you soon.
+      </p>
     </div>
   </div>
 
   <script>
-    function confirmPayment() {
-      // Redirect to your bot's invite link
-      window.location.href = "https://discord.com/oauth2/authorize?client_id=1362211889924280591";
-    }
+    const form = document.getElementById("paymentForm");
+    const msg = document.getElementById("confirmationMsg");
+
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      
+      const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        discord: document.getElementById("discord").value,
+        server: document.getElementById("server").value,
+      };
+
+      const response = await fetch("maxdevinvitewebsite.gogojohnny745.workers.dev", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        msg.style.display = "block";
+        form.style.display = "none";
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    });
   </script>
 </body>
 </html>
