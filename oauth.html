@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discord OAuth | Max Dev Bots</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #7289DA, #5865F2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+    p {
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
+    .loader {
+      margin-top: 30px;
+      border: 8px solid rgba(255,255,255,0.3);
+      border-top: 8px solid white;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes fadeIn {
+      0% {opacity: 0;}
+      100% {opacity: 1;}
+    }
+  </style>
+
+</head>
+<body>
+
+<div class="container" id="container">
+  <h1>Logging you in with Discord...</h1>
+  <div class="loader"></div>
+  <p id="status">Please wait...</p>
+</div>
+
+<script>
+  // Discord app info
+  const clientId = "1362211889924280591"; // <--- replace this
+  const redirectUri = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/oauth";
+  const scope = "identify email";
+  const responseType = "code";
+
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const statusText = document.getElementById('status');
+
+  if (!code) {
+    // No code yet, send user to Discord authorization
+    const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${encodeURIComponent(scope)}`;
+    window.location.href = discordAuthUrl;
+  } else {
+    // Got the code from Discord
+    console.log("OAuth Code:", code);
+    statusText.innerText = "Authentication successful! Redirecting...";
+
+    // Normally here you send the code to a backend to get an access_token
+    // But since this is frontend-only (GitHub Pages), we just move forward
+
+    setTimeout(() => {
+      window.location.href = "/Max-Dev-Bots-Invite/index.html"; // <-- Change if needed
+    }, 2500);
+  }
+</script>
+
+</body>
+</html>
