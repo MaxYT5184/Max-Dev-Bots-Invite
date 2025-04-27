@@ -1,7 +1,7 @@
 /* General Styles */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    background: linear-gradient(135deg, #2e3b4e, #2b3542);
     color: #ffffff;
     margin: 0;
     display: flex;
@@ -28,8 +28,8 @@ body::-webkit-scrollbar-track {
 
 /* Navbar */
 nav {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.15); /* Lighter background for better contrast */
+    backdrop-filter: blur(15px);
     padding: 15px 30px;
     position: fixed;
     top: 0;
@@ -38,7 +38,7 @@ nav {
     display: flex;
     justify-content: center;
     gap: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Slightly softer shadow */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -96,13 +96,13 @@ nav {
 
 /* Creator Section */
 .creator-section {
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.1); /* Lighter background for more contrast */
     backdrop-filter: blur(15px);
     border-radius: 20px;
     padding: 40px;
     width: 85%;
     margin-top: 120px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
 }
 
@@ -128,7 +128,7 @@ nav {
 }
 
 .bot-card {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1); /* Adjusted for more vibrant contrast */
     border-radius: 20px;
     padding: 30px;
     width: 320px;
@@ -168,8 +168,8 @@ nav {
 /* Report Section */
 .report-container {
     max-width: 650px;
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.1); /* Softer background */
+    backdrop-filter: blur(20px);
     padding: 40px;
     border-radius: 20px;
     margin: 120px auto 40px;
