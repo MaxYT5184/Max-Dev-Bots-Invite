@@ -83,16 +83,29 @@
                 if (token) {
                     user = await fetchUser(token);
                     localStorage.setItem('user', JSON.stringify(user));
-                    window.location.hash = '';
+                    window.location.hash = '';  // Clear the URL hash after successful login
                 }
             }
+
             if (user) {
-                document.getElementById('login-button').innerHTML = `
-                    <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" alt="Avatar" style="width:24px;height:24px;border-radius:50%; vertical-align:middle;">
-                    <span style="vertical-align:middle;">${user.username}</span>
+                // Hide login button and display the user's information
+                const loginButton = document.getElementById('login-button');
+                loginButton.style.display = 'none'; // Hide the login button
+                
+                // Create a container to display the profile info
+                const profileContainer = document.createElement('div');
+                profileContainer.classList.add('profile-info');
+                
+                profileContainer.innerHTML = `
+                    <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" alt="Avatar" style="width: 24px; height: 24px; border-radius: 50%; vertical-align: middle;">
+                    <span style="vertical-align: middle;">${user.username}</span>
                 `;
+                
+                // Append the profile information to the nav or any preferred place
+                document.querySelector('nav').appendChild(profileContainer);
             }
         }
+
         init();
     </script>
 
