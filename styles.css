@@ -248,3 +248,15 @@ footer a:hover {
 .discord-footer-img:hover {
     transform: scale(1.3) rotate(10deg);
 }
+
+/* Display Profile In Nav Bar */
+.profile-info {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 20px;
+    color: #ffffff;
+}
+
+.profile-info img {
+    margin-right: 10px;
+}
