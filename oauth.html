@@ -6,46 +6,74 @@
   <title>Discord OAuth | Max Dev Bots</title>
 
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #7289DA, #5865F2);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      overflow: hidden;
-    }
-    .container {
-      text-align: center;
-      animation: fadeIn 1s ease-in;
-    }
-    h1 {
-      margin-bottom: 20px;
-      font-size: 2em;
-    }
-    p {
-      margin-top: 10px;
-      font-size: 1.2em;
-    }
-    .loader {
-      margin-top: 30px;
-      border: 8px solid rgba(255,255,255,0.3);
-      border-top: 8px solid white;
-      border-radius: 50%;
-      width: 70px;
-      height: 70px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    @keyframes fadeIn {
-      0% {opacity: 0;}
-      100% {opacity: 1;}
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #7289DA, #5865F2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  overflow: hidden;
+  text-align: center;
+}
+
+.container {
+  text-align: center;
+  animation: fadeIn 1s ease-in;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  font-weight: 600;
+}
+
+p {
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+
+.loader {
+  margin-top: 30px;
+  border: 8px solid rgba(255, 255, 255, 0.3);
+  border-top: 8px solid white;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+
+  .loader {
+    width: 50px;
+    height: 50px;
+  }
+}
   </style>
 
 </head>
