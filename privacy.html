@@ -26,5 +26,29 @@
 
         <p><a href="index.html">Return to Homepage</a></p>
     </div>
+
+    <form id="hidden-recaptcha-form">
+  <button id="invisible-recaptcha-btn"
+          class="g-recaptcha"
+          data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
+          data-callback="onSubmitRecaptcha"
+          data-size="invisible"
+          style="display:none;">
+  </button>
+</form>
+    
+    <script>
+  function triggerRecaptcha() {
+    grecaptcha.execute();
+  }
+
+  function onSubmitRecaptcha(token) {
+    console.log("Invisible reCAPTCHA success! Token:", token);
+    alert("You're verified as human!");
+
+    // 👉 You can now proceed with any protected action
+  }
+</script>
+
 </body>
 </html>
