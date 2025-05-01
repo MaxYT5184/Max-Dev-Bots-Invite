@@ -44,12 +44,14 @@
         </div>
     </div>
 
-    <!-- Example Button with Invisible reCAPTCHA -->
-<form id="recaptcha-form">
-  <button type="button" class="discord-btn g-recaptcha"
-    data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
-    data-callback="onSubmitRecaptcha"
-    data-action="submit">Verify You're Human</button>
+<form id="hidden-recaptcha-form">
+  <button id="invisible-recaptcha-btn"
+          class="g-recaptcha"
+          data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
+          data-callback="onSubmitRecaptcha"
+          data-size="invisible"
+          style="display:none;">
+  </button>
 </form>
 
     <footer>
