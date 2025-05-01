@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report an Issue</title>
-<link rel="icon" type="image/jpeg" href="dev.jpg">
+    <link rel="icon" type="image/jpeg" href="dev.jpg">
     <link rel="stylesheet" href="styles.css">
+    <!-- Google reCAPTCHA v2 API -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="report-container">
@@ -14,24 +16,57 @@
 
         <form id="reportForm">
             <label for="username">Discord Username:</label>
-            <input type="text" id="username" placeholder="Enter your Discord username" required>
+            <input type="text" id="username" name="username" placeholder="Enter your Discord username" required>
 
             <label for="displayName">Discord Display Name:</label>
-            <input type="text" id="displayName" placeholder="Enter your display name" required>
+            <input type="text" id="displayName" name="displayName" placeholder="Enter your display name" required>
 
             <label for="dateTime">Date & Time:</label>
-            <input type="datetime-local" id="dateTime" required>
+            <input type="datetime-local" id="dateTime" name="dateTime" required>
 
             <label for="message">Message:</label>
-            <textarea id="message" placeholder="Describe the issue..." required></textarea>
+            <textarea id="message" name="message" placeholder="Describe the issue..." required></textarea>
 
             <label for="proofImage">Proof Image (URL):</label>
-            <input type="url" id="proofImage" placeholder="Paste image URL (optional)">
+            <input type="url" id="proofImage" name="proofImage" placeholder="Paste image URL (optional)">
+
+            <!-- reCAPTCHA Checkbox -->
+            <div class="g-recaptcha" data-sitekey="6LevKisrAAAAAFpqHko8-SrpEl4xz7OCT-FOgJqt"></div>
 
             <button type="submit">Submit Report</button>
         </form>
     </div>
 
     <script src="report.js"></script>
+    <script>
+        document.getElementById('reportForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission for reCAPTCHA check
+
+            // Check reCAPTCHA response
+            var recaptchaResponse = grecaptcha.getResponse();
+            if (recaptchaResponse.length === 0) {
+                alert("Please complete the reCAPTCHA.");
+                return;
+            }
+
+            // Prepare data to send to Google Apps Script
+            var formData = new FormData(this);
+            formData.append('g-recaptcha-response', recaptchaResponse);
+
+            // Send data to Google Apps Script
+            fetch('https://script.google.com/macros/s/AKfycbzkvL5zoDAvBwvXeQ3kDXU_hqfHdzxk9yCMfOgxgBy_bJXEXeEmBuFBz2UJ6nwiXwXxqA/exec', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.text())
+              .then(data => {
+                  alert("Form submitted successfully!");
+                  console.log(data);  // For debugging
+              })
+              .catch(error => {
+                  alert("Error submitting form.");
+                  console.error(error);
+              });
+        });
+    </script>
 </body>
 </html>
