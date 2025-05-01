@@ -144,9 +144,14 @@
     // 👉 You can now proceed with any protected action
   }
 
-          function acceptCookies() {
+  function acceptCookies() {
     localStorage.setItem("cookiesAccepted", "true");
     document.getElementById("cookie-banner").style.display = "none";
+  }
+
+  function openCookieSettings() {
+    localStorage.removeItem("cookiesAccepted");
+    document.getElementById("cookie-banner").style.display = "block";
   }
 
   window.onload = function () {
