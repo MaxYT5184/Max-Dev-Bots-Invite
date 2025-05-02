@@ -7,20 +7,20 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #0e1117;
+      background: #0d1117;
       color: #f0f6fc;
       text-align: center;
-      padding-top: 50px;
+      padding-top: 60px;
     }
     .status-box {
       display: inline-block;
       background: #161b22;
-      border-radius: 8px;
       padding: 30px;
-      box-shadow: 0 0 10px #000;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     }
     .emoji {
-      font-size: 50px;
+      font-size: 48px;
     }
     .status-text {
       font-size: 24px;
@@ -28,7 +28,7 @@
     }
     .details {
       margin-top: 20px;
-      font-size: 16px;
+      font-size: 14px;
       color: #8b949e;
       white-space: pre-line;
     }
@@ -38,108 +38,87 @@
 
   <div class="status-box">
     <div class="emoji" id="emoji">⚪</div>
-    <div class="status-text" id="statusText">Loading status...</div>
+    <div class="status-text" id="statusText">Checking status...</div>
     <div class="details" id="details"></div>
   </div>
 
   <script>
     const versionURL = 'version.json';
-    const webhookURL = 'https://discord.com/api/webhooks/1367857917050622104/gH28EyXROPS3wo_7dILg80uFfTKSA1qp26t-g6wgmwNEKlW4IsGnX57FrkFNUBiI-ftx'; // Replace this
+    const webhookURL = 'https://discord.com/api/webhooks/1367857917050622104/gH28EyXROPS3wo_7dILg80uFfTKSA1qp26t-g6wgmwNEKlW4IsGnX57FrkFNUBiI-ftx';
+
+    const statusConfig = {
+      live: {
+        emoji: '🟢',
+        text: 'Website online.',
+        color: 0x57F287 // green
+      },
+      closed: {
+        emoji: '🔴',
+        text: 'Website offline.',
+        color: 0xED4245 // red
+      },
+      updating: {
+        emoji: '🟡',
+        text: 'Website updating.',
+        color: 0xFEE75C // yellow
+      },
+      error: {
+        emoji: '⚫',
+        text: 'Error checking status.',
+        color: 0x2F3136 // dark gray
+      }
+    };
 
     async function fetchStatus() {
-      const start = Date.now();
-      let ping;
-      let statusData;
+      let ping = 0;
+      let status = "error";
 
       try {
-        const res = await fetch(versionURL + '?cache=' + Date.now()); // bust cache
+        const start = Date.now();
+        const response = await fetch(versionURL + "?t=" + Date.now()); // cache bust
         ping = Date.now() - start;
 
-        if (!res.ok) throw new Error("Failed to fetch version.json");
-        statusData = await res.json();
-      } catch (err) {
-        showStatus("error", ping || 0);
-        return;
+        if (!response.ok) throw new Error("Fetch failed");
+
+        const json = await response.json();
+        status = json.status || "error";
+      } catch (e) {
+        console.warn("Error fetching status:", e);
       }
 
-      const status = statusData.status || "unknown";
-      showStatus(status, ping);
-      sendWebhook(status, ping);
+      updateDisplay(status, ping);
+      sendEmbedToDiscord(status, ping);
     }
 
-    function showStatus(status, ping) {
-      const emojiMap = {
-        "live": "🟢",
-        "closed": "🔴",
-        "updating": "🟡",
-        "error": "⚫",
-        "unknown": "⚪"
-      };
+    function updateDisplay(status, ping) {
+      const config = statusConfig[status] || statusConfig.error;
+      const time = new Date().toISOString().replace("T", " ").split(".")[0];
 
-      const statusMap = {
-        "live": "Website online.",
-        "closed": "Website offline.",
-        "updating": "Website updating.",
-        "error": "Status fetch failed.",
-        "unknown": "Unknown status."
-      };
-
-      const emoji = emojiMap[status] || emojiMap.unknown;
-      const text = statusMap[status] || statusMap.unknown;
-      const timeUTC = new Date().toISOString().replace("T", " ").split(".")[0];
-
-      document.getElementById("emoji").textContent = emoji;
-      document.getElementById("statusText").textContent = text;
+      document.getElementById("emoji").textContent = config.emoji;
+      document.getElementById("statusText").textContent = config.text;
       document.getElementById("details").textContent =
-        `Service Name\nMain Website\nTime (Etc/UTC)\n${timeUTC}\nPing\n${ping} ms`;
+        `Service Name\nMain Website\nTime (Etc/UTC)\n${time}\nPing\n${ping} ms`;
     }
 
-    async function sendWebhook(status, ping) {
-      const emojiMap = {
-        "live": "🟢",
-        "closed": "🔴",
-        "updating": "🟡",
-        "error": "⚫",
-        "unknown": "⚪"
-      };
-      const statusMap = {
-        "live": "Website online.",
-        "closed": "Website offline.",
-        "updating": "Website updating.",
-        "error": "Status fetch failed.",
-        "unknown": "Unknown status."
+    function sendEmbedToDiscord(status, ping) {
+      const config = statusConfig[status] || statusConfig.error;
+      const time = new Date().toISOString().replace("T", " ").split(".")[0];
+
+      const embed = {
+        title: `${config.emoji} ${config.text}`,
+        description: "**Service Name**\nMain Website\n\n**Time (Etc/UTC)**\n" + time + `\n\n**Ping**\n${ping} ms`,
+        color: config.color
       };
 
-      const emoji = emojiMap[status] || emojiMap.unknown;
-      const text = statusMap[status] || statusMap.unknown;
-      const timeUTC = new Date().toISOString().replace("T", " ").split(".")[0];
-
-      const message = `${emoji}${text}
-Service Name
-Main Website
-Time (Etc/UTC)
-${timeUTC}
-Ping
-${ping} ms`;
-
-      // Optional: prevent spam if webhook is not configured
-      if (webhookURL.includes("https://discord.com/api/webhooks/1367857917050622104/gH28EyXROPS3wo_7dILg80uFfTKSA1qp26t-g6wgmwNEKlW4IsGnX57FrkFNUBiI-ftx")) return;
-
-      try {
-        await fetch(webhookURL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ content: message })
-        });
-      } catch (err) {
-        console.warn("Webhook send failed:", err);
-      }
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ embeds: [embed] })
+      }).catch(console.error);
     }
 
-    // Initial run
+    // Run once now and every 5 minutes
     fetchStatus();
-
-    // Every 5 minutes
     setInterval(fetchStatus, 5 * 60 * 1000);
   </script>
 
