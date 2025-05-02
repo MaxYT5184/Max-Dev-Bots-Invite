@@ -49,11 +49,11 @@
   </div>
 
   <script>
-    const webhookURL = 'https://discord.com/api/webhooks/1367930382242152468/H7oKcwuc4sgFGKgZQDpZxpB4CB_Nd8OtdLcasjgdbizL9_dHwQwdMFCL-jQyvU2p2_-l'; // 👈 Replace with your actual Discord webhook URL
+    const webhookURL = 'https://discord.com/api/webhooks/1367930382242152468/H7oKcwuc4sgFGKgZQDpZxpB4CB_Nd8OtdLcasjgdbizL9_dHwQwdMFCL-jQyvU2p2_-l';
 
     const services = [
-  { name: 'GitHub Page', url: 'https://maxyt5184.github.io/Max-Dev-Bots-Invite/' }
-];
+      { name: 'GitHub Page', url: 'https://maxyt5184.github.io/Max-Dev-Bots-Invite/' }
+    ];
 
     async function checkStatus(service) {
       try {
@@ -78,21 +78,21 @@
         `;
         container.appendChild(box);
 
-        if (status === 'Down') {
-          sendDiscordAlert(service.name);
-        }
+        sendDiscordAlert(service.name, status);
       }
     }
 
-    async function sendDiscordAlert(serviceName) {
+    async function sendDiscordAlert(serviceName, status) {
+      const isUp = status === 'Up';
+
       const embedPayload = {
         username: "🛠 Max Dev System Status",
         avatar_url: "https://avatars.githubusercontent.com/u/139154302",
         embeds: [
           {
-            title: `❌ ${serviceName} is DOWN`,
+            title: isUp ? `✅ ${serviceName} is UP` : `❌ ${serviceName} is DOWN`,
             description: `[View System Status Page](https://maxyt5184.github.io/Max-Dev-Bots-Invite/)`,
-            color: 0xff0000,
+            color: isUp ? 0x22c55e : 0xff0000,
             timestamp: new Date().toISOString(),
             footer: {
               text: "System Monitor | Max Dev"
@@ -124,9 +124,11 @@
       }
     }
 
-    // Start status check on page load
+    // Initial check on page load
     updateStatus();
-    setInterval(updateStatus, 5 * 60 * 1000); // every 5 minutes
+
+    // Repeat check every 20 minutes
+    setInterval(updateStatus, 20 * 60 * 1000);
   </script>
 </body>
 </html>
