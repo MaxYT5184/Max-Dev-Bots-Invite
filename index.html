@@ -244,7 +244,7 @@ installBtn.addEventListener("click", () => {
   });
 });
 
-fetch("/version.json")
+fetch("/Max-Dev-Bots-Invite/version.json")
   .then(res => res.json())
   .then(data => {
     if (data.status === "updating") {
@@ -252,6 +252,9 @@ fetch("/version.json")
     } else if (data.status === "closed") {
       window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/ERRORS/closed.html";
     }
+  })
+  .catch(error => {
+    console.error("Failed to fetch version.json:", error);
   });
 
     </script>
