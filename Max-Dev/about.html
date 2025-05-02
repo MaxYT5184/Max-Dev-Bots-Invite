@@ -6,7 +6,7 @@
   <title>About Me - Max Dev</title>
   <link rel="icon" href="logo.png" type="image/png" />
   <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     * {
       margin: 0;
@@ -52,23 +52,15 @@
       font-size: 2.5em;
       margin-bottom: 10px;
     }
-    .description {
+    .about {
       font-size: 1.2em;
       margin-bottom: 40px;
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
     }
-    .skills {
-      text-align: center;
-    }
-    .skills ul {
-      list-style: none;
-      padding: 0;
-      font-size: 1.1em;
-    }
-    .skills li {
-      margin: 10px;
-    }
-    .skills span {
-      font-weight: bold;
+    .about p {
+      margin-bottom: 20px;
     }
     footer {
       position: absolute;
@@ -85,9 +77,6 @@
       text-decoration: none;
       margin: 0 5px;
     }
-    .language-selector {
-      margin-top: 20px;
-    }
   </style>
 </head>
 <body>
@@ -103,37 +92,29 @@
 
   <div class="content">
     <h1>About Me</h1>
-    <p class="description">I'm Max Dev, a passionate developer with experience in creating dynamic websites and applications. I'm always excited to learn new technologies and contribute to the tech community.</p>
-    <h2>Skills</h2>
-    <ul>
-      <li><span>HTML:</span> Advanced</li>
-      <li><span>CSS:</span> Advanced</li>
-      <li><span>JavaScript:</span> Advanced</li>
-      <li><span>Node.js:</span> Advanced</li>
-      <li><span>PHP:</span> Beginner</li>
-    </ul>
+    <div class="about">
+      <p>Hi, I'm Max Dev, a passionate developer who loves creating innovative and useful software. I specialize in web development, mobile apps, and game development. My goal is to always keep learning and improving my skills in various technologies.</p>
+      
+      <p>With a strong background in JavaScript, HTML, and CSS, I enjoy building interactive websites and applications. I am always eager to take on new challenges and work on projects that push my abilities further.</p>
+      
+      <p>When I'm not coding, you can find me playing video games, experimenting with new tech, or collaborating with others on exciting projects!</p>
+    </div>
+    
+    <!-- Invisible reCAPTCHA -->
+    <form id="hidden-recaptcha-form">
+      <button id="invisible-recaptcha-btn"
+              class="g-recaptcha"
+              data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
+              data-callback="onSubmitRecaptcha"
+              data-size="invisible"
+              style="display:none;">
+      </button>
+    </form>
   </div>
-
-  <form id="hidden-recaptcha-form">
-  <button id="invisible-recaptcha-btn"
-          class="g-recaptcha"
-          data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
-          data-callback="onSubmitRecaptcha"
-          data-size="invisible"
-          style="display:none;">
-  </button>
-</form>
 
   <footer>
     <p>Copyrighted, Created By Andy Torres, Your School Advanced Developer</p>
     <p>Get Website Coded For Free, No Scam. I am from Puerto Rico.</p>
-    <div class="language-selector">
-      <select id="languageSelect" onchange="changeLanguage()">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="ar">العربية</option>
-      </select>
-    </div>
   </footer>
 
   <script>
@@ -160,34 +141,14 @@
     }
     animate();
 
-    function changeLanguage() {
-      const lang = document.getElementById('languageSelect').value;
-      if (lang === "es") {
-        document.querySelector('h1').innerText = "Sobre mí";
-        document.querySelector('.description').innerText = "Soy Max Dev, un desarrollador apasionado con experiencia en la creación de sitios web dinámicos y aplicaciones. Siempre estoy emocionado de aprender nuevas tecnologías y contribuir a la comunidad tecnológica.";
-        document.querySelector('h2').innerText = "Habilidades";
-      } else if (lang === "ar") {
-        document.querySelector('h1').innerText = "من أنا";
-        document.querySelector('.description').innerText = "أنا Max Dev، مطور شغوف ولدي خبرة في إنشاء مواقع الويب الديناميكية والتطبيقات. دائمًا ما أكون متحمسًا لتعلم تقنيات جديدة والمساهمة في المجتمع التكنولوجي.";
-        document.querySelector('h2').innerText = "المهارات";
-      } else {
-        document.querySelector('h1').innerText = "About Me";
-        document.querySelector('.description').innerText = "I'm Max Dev, a passionate developer with experience in creating dynamic websites and applications. I'm always excited to learn new technologies and contribute to the tech community.";
-        document.querySelector('h2').innerText = "Skills";
-      }
+    function triggerRecaptcha() {
+      grecaptcha.execute();
     }
 
-      function triggerRecaptcha() {
-    grecaptcha.execute();
-  }
-
-  function onSubmitRecaptcha(token) {
-    console.log("Invisible reCAPTCHA success! Token:", token);
-    alert("You're verified as human!");
-
-    // 👉 You can now proceed with any protected action
-  }
-    
+    function onSubmitRecaptcha(token) {
+      console.log("Invisible reCAPTCHA success! Token:", token);
+      alert("You're verified as human!");
+    }
   </script>
 </body>
 </html>
