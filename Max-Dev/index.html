@@ -1,143 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Andy Torres - Advanced Developer Portfolio</title>
-  <link rel="icon" href="logo.png" type="image/png" />
-  <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andy Torres - Advanced Developer</title>
   <style>
-    * {
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #111;
-      color: white;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
     }
     header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header .logo {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: #00ff00;
-    }
-    header nav a {
-      color: #fff;
-      text-decoration: none;
+      background-color: #007bff;
+      color: white;
       padding: 10px;
-      margin: 0 15px;
-      font-size: 1.1em;
-      transition: color 0.3s;
-    }
-    header nav a:hover {
-      color: #00ff00;
-    }
-    .content {
-      padding-top: 120px;
       text-align: center;
-      z-index: 1;
-      position: relative;
+    }
+    main {
+      padding: 20px;
+    }
+    .language-selector {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
     h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-      color: #00ff00;
-      text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+      font-size: 2em;
     }
-    .intro {
-      font-size: 1.3em;
-      max-width: 900px;
-      margin: 0 auto;
-      line-height: 1.7;
-      margin-bottom: 50px;
+    .skills-list {
+      margin-top: 20px;
+    }
+    .skill {
+      margin: 10px 0;
     }
     footer {
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: #007bff;
       color: white;
       text-align: center;
-      padding: 20px;
-      position: absolute;
+      padding: 10px;
+      position: fixed;
       bottom: 0;
       width: 100%;
-      z-index: 10;
     }
-    footer a {
-      color: #00ff00;
-      text-decoration: none;
-      margin: 0 5px;
+    .content-section {
+      margin-bottom: 50px;
     }
-    footer a:hover {
-      text-decoration: underline;
-    }
-    .language-dropdown {
-      display: flex;
-      justify-content: center;
-      margin: 30px 0;
-    }
-    .language-dropdown select {
-      padding: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #00ff00;
-      color: white;
-      border: none;
-      border-radius: 5px;
+    .g-recaptcha {
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">Andy Torres</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="https://github.com/AndyTorresDev" target="_blank">GitHub</a>
-      <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a>
-    </nav>
+    <h1 id="pageTitle">About Me - Andy Torres</h1>
   </header>
 
-  <div class="content">
-    <h1 id="main-title">Welcome to Andy Torres' Developer Portfolio</h1>
-    <div class="intro">
-      <p id="intro-text">
-        I'm Andy Torres, a passionate software developer with expertise in building
-        complex and scalable software solutions. I specialize in full-stack development, 
-        mobile applications, and AI tools, pushing the boundaries of technology.
-      </p>
-      <p id="additional-text">
-        As an advanced developer, I focus on delivering high-performance applications 
-        and continuously seek out new challenges and technologies to learn and implement.
-      </p>
-    </div>
+  <div class="language-selector">
+    <label for="languageSelect">Language: </label>
+    <select id="languageSelect" onchange="changeLanguage()">
+      <option value="en">English</option>
+      <option value="ar">Arabic</option>
+      <option value="es">Spanish</option>
+    </select>
+  </div>
 
-    <!-- Language Dropdown -->
-    <div class="language-dropdown">
-      <select onchange="switchLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="ar">العربية</option>
-      </select>
-    </div>
+  <main>
+    <section class="content-section">
+      <p id="introText">I'm Andy Torres, an advanced software developer with a passion for creating innovative and scalable software. My expertise spans full-stack development, mobile applications, AI tools, and much more. I enjoy solving complex problems and bringing high-performance applications to life.</p>
+      <p id="introText2">I believe in constantly learning and pushing the boundaries of what I can achieve. Every project I take on is an opportunity to grow, and I am always looking for new challenges to overcome.</p>
+    </section>
 
-    <!-- Invisible reCAPTCHA Section -->
-    <div id="recaptcha-container" style="text-align: center;">
+    <section class="content-section">
+      <h2 id="skillsTitle">My Advanced Skills</h2>
+      <div class="skills-list">
+        <div class="skill">
+          <h3 id="htmlSkill">HTML</h3>
+          <p id="htmlText">Advanced - I write clean, semantic, and accessible HTML5 code.</p>
+        </div>
+        <div class="skill">
+          <h3 id="cssSkill">CSS</h3>
+          <p id="cssText">Advanced - I design responsive, modern layouts with advanced CSS techniques.</p>
+        </div>
+        <div class="skill">
+          <h3 id="jsSkill">JavaScript</h3>
+          <p id="jsText">Advanced - I build interactive websites with Vanilla JS and frameworks like React.js.</p>
+        </div>
+        <div class="skill">
+          <h3 id="nodeSkill">Node.js</h3>
+          <p id="nodeText">Advanced - I build scalable backends with Node.js and integrate RESTful APIs.</p>
+        </div>
+        <div class="skill">
+          <h3 id="phpSkill">PHP</h3>
+          <p id="phpText">Advanced - I create dynamic websites with PHP and frameworks like Laravel.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2 id="toolsTitle">Tools I Use</h2>
+      <ul>
+        <li>VS Code</li>
+        <li>Git & GitHub</li>
+        <li>Docker</li>
+        <li>Postman</li>
+        <li>Figma</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Invisible reCAPTCHA</h2>
       <form id="hidden-recaptcha-form">
         <button id="invisible-recaptcha-btn"
                 class="g-recaptcha"
@@ -147,66 +123,92 @@
                 style="display:none;">
         </button>
       </form>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <footer>
-    <p id="footer-text">Copyright © Andy Torres 2025. All rights reserved.</p>
-    <p>Connect with me on <a href="https://github.com/AndyTorresDev" target="_blank">GitHub</a> or <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a></p>
+    <p>© 2025 Andy Torres</p>
   </footer>
 
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
-    // Invisible reCAPTCHA callback function
-    function onSubmitRecaptcha() {
-      alert('reCAPTCHA solved!');
-    }
+    function changeLanguage() {
+      const selectedLanguage = document.getElementById('languageSelect').value;
 
-    // 3D Background using Three.js
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-
-    // Create a more immersive 3D environment
-    const geometry = new THREE.SphereGeometry(5, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-
-    camera.position.z = 10;
-
-    function animate() {
-      requestAnimationFrame(animate);
-      sphere.rotation.x += 0.01;
-      sphere.rotation.y += 0.01;
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    // Language Switching Functionality
-    function switchLanguage(language) {
-      const title = document.getElementById('main-title');
-      const introText = document.getElementById('intro-text');
-      const additionalText = document.getElementById('additional-text');
-      const footerText = document.getElementById('footer-text');
-      
-      if(language === 'es') {
-        title.innerHTML = 'Bienvenido al portafolio de Andy Torres';
-        introText.innerHTML = 'Soy Andy Torres, un desarrollador de software apasionado con experiencia en la construcción de soluciones de software complejas y escalables. Me especializo en desarrollo full-stack, aplicaciones móviles y herramientas de IA, llevando los límites de la tecnología.';
-        additionalText.innerHTML = 'Como desarrollador avanzado, me enfoco en ofrecer aplicaciones de alto rendimiento y busco continuamente nuevos desafíos y tecnologías para aprender e implementar.';
-        footerText.innerHTML = 'Copyright © Andy Torres 2025. Todos los derechos reservados.';
-      } else if(language === 'ar') {
-        title.innerHTML = 'مرحبًا بك في محفظة Andy Torres';
-        introText.innerHTML = 'أنا Andy Torres ، مطور برامج شغوف ذو خبرة في بناء حلول البرمجيات المعقدة والقابلة للتطوير. أتخصص في تطوير التطبيقات الكاملة ، وتطبيقات الهاتف المحمول ، وأدوات الذكاء الاصطناعي ، وأدفع حدود التكنولوجيا.';
-        additionalText.innerHTML = 'كمطور متقدم ، أركز على تقديم تطبيقات عالية الأداء وأبحث باستمرار عن تحديات وتقنيات جديدة لتعلمها وتنفيذها.';
-        footerText.innerHTML = 'حقوق الطبع والنشر © Andy Torres 2025. جميع الحقوق محفوظة.';
-      } else {
-        title.innerHTML = 'Welcome to Andy Torres\' Developer Portfolio';
-        introText.innerHTML = 'I\'m Andy Torres, a passionate software developer with expertise in building complex and scalable software solutions. I specialize in full-stack development, mobile applications, and AI tools, pushing the boundaries of technology.';
-        additionalText.innerHTML = 'As an advanced developer, I focus on delivering high-performance applications and continuously seek out new challenges and technologies to learn and implement.';
-        footerText.innerHTML = 'Copyright © Andy Torres 2025. All rights reserved.';
+      if (selectedLanguage === 'en') {
+        document.getElementById('pageTitle').innerText = "About Me - Andy Torres";
+        document.getElementById('introText').innerText = 
+          "I'm Andy Torres, an advanced software developer with a passion for creating innovative and scalable software. My expertise spans full-stack development, mobile applications, AI tools, and much more. I enjoy solving complex problems and bringing high-performance applications to life.";
+        document.getElementById('introText2').innerText = 
+          "I believe in constantly learning and pushing the boundaries of what I can achieve. Every project I take on is an opportunity to grow, and I am always looking for new challenges to overcome.";
+        document.getElementById('skillsTitle').innerText = "My Advanced Skills";
+        document.getElementById('htmlSkill').innerText = "HTML";
+        document.getElementById('cssSkill').innerText = "CSS";
+        document.getElementById('jsSkill').innerText = "JavaScript";
+        document.getElementById('nodeSkill').innerText = "Node.js";
+        document.getElementById('phpSkill').innerText = "PHP";
+        document.getElementById('htmlText').innerText = 
+          "Advanced - I write clean, semantic, and accessible HTML5 code.";
+        document.getElementById('cssText').innerText = 
+          "Advanced - I design responsive, modern layouts with advanced CSS techniques.";
+        document.getElementById('jsText').innerText = 
+          "Advanced - I build interactive websites with Vanilla JS and frameworks like React.js.";
+        document.getElementById('nodeText').innerText = 
+          "Advanced - I build scalable backends with Node.js and integrate RESTful APIs.";
+        document.getElementById('phpText').innerText = 
+          "Advanced - I create dynamic websites with PHP and frameworks like Laravel.";
+        document.getElementById('toolsTitle').innerText = "Tools I Use";
+      } else if (selectedLanguage === 'ar') {
+        document.getElementById('pageTitle').innerText = "من عني";
+        document.getElementById('introText').innerText = 
+          "أنا آندي توريس، مطور برمجيات متقدم يتمتع بشغف لإنشاء برامج مبتكرة وقابلة للتوسع. تمتد خبرتي عبر تطوير الواجهات الأمامية والخلفية، وتطبيقات الهواتف المحمولة، وأدوات الذكاء الاصطناعي، وأكثر من ذلك. أحب حل المشكلات المعقدة وتحقيق التطبيقات عالية الأداء.";
+        document.getElementById('introText2').innerText = 
+          "أعتقد أنه يجب علي دائمًا التعلم ودفع حدود ما يمكنني تحقيقه. كل مشروع أتخذه هو فرصة للنمو، وأنا دائمًا أبحث عن تحديات جديدة لتجاوزها.";
+        document.getElementById('skillsTitle').innerText = "مهاراتي المتقدمة";
+        document.getElementById('htmlSkill').innerText = "HTML";
+        document.getElementById('cssSkill').innerText = "CSS";
+        document.getElementById('jsSkill').innerText = "JavaScript";
+        document.getElementById('nodeSkill').innerText = "Node.js";
+        document.getElementById('phpSkill').innerText = "PHP";
+        document.getElementById('htmlText').innerText = 
+          "متقدم - أكتب كود HTML5 نظيفًا ومرنًا وقابلًا للوصول.";
+        document.getElementById('cssText').innerText = 
+          "متقدم - أصمم تخطيطات استجابة وتقنيات CSS متقدمة.";
+        document.getElementById('jsText').innerText = 
+          "متقدم - أبني مواقع تفاعلية باستخدام JS العادي وأطر العمل مثل React.js.";
+        document.getElementById('nodeText').innerText = 
+          "متقدم - أبني خلفيات قابلة للتوسع باستخدام Node.js وأدمج واجهات RESTful API.";
+        document.getElementById('phpText').innerText = 
+          "متقدم - أخلق مواقع ديناميكية باستخدام PHP وأطر العمل مثل Laravel.";
+        document.getElementById('toolsTitle').innerText = "الأدوات التي أستخدمها";
+      } else if (selectedLanguage === 'es') {
+        document.getElementById('pageTitle').innerText = "Acerca de mí";
+        document.getElementById('introText').innerText = 
+          "Soy Andy Torres, un desarrollador de software avanzado con pasión por crear software innovador y escalable. Mi experiencia abarca desarrollo full-stack, aplicaciones móviles, herramientas de IA y mucho más. Disfruto resolver problemas complejos y llevar aplicaciones de alto rendimiento a la vida.";
+        document.getElementById('introText2').innerText = 
+          "Creo en aprender constantemente y superar los límites de lo que puedo lograr. Cada proyecto que asumo es una oportunidad para crecer, y siempre busco nuevos desafíos para superar.";
+        document.getElementById('skillsTitle').innerText = "Mis habilidades avanzadas";
+        document.getElementById('htmlSkill').innerText = "HTML";
+        document.getElementById('cssSkill').innerText = "CSS";
+        document.getElementById('jsSkill').innerText = "JavaScript";
+        document.getElementById('nodeSkill').innerText = "Node.js";
+        document.getElementById('phpSkill').innerText = "PHP";
+        document.getElementById('htmlText').innerText = 
+          "Avanzado - Escribo código HTML5 limpio, semántico y accesible.";
+        document.getElementById('cssText').innerText = 
+          "Avanzado - Diseño diseños receptivos con técnicas avanzadas de CSS.";
+        document.getElementById('jsText').innerText = 
+          "Avanzado - Creo sitios web interactivos con JS puro y frameworks como React.js.";
+        document.getElementById('nodeText').innerText = 
+          "Avanzado - Desarrollo backend escalables con Node.js e integro APIs RESTful.";
+        document.getElementById('phpText').innerText = 
+          "Avanzado - Creo sitios web dinámicos con PHP y frameworks como Laravel.";
+        document.getElementById('toolsTitle').innerText = "Herramientas que utilizo";
       }
+    }
+
+    function onSubmitRecaptcha(token) {
+      alert('reCAPTCHA passed! Token: ' + token);
     }
   </script>
 </body>
