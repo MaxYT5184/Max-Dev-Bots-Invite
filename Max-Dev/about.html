@@ -176,6 +176,18 @@
         document.querySelector('h2').innerText = "Skills";
       }
     }
+
+      function triggerRecaptcha() {
+    grecaptcha.execute();
+  }
+
+  function onSubmitRecaptcha(token) {
+    console.log("Invisible reCAPTCHA success! Token:", token);
+    alert("You're verified as human!");
+
+    // 👉 You can now proceed with any protected action
+  }
+    
   </script>
 </body>
 </html>
