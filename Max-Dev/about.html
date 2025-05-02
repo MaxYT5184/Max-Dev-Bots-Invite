@@ -2,249 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Me - Max Dev</title>
   <link rel="icon" href="logo.png" type="image/png" />
+  <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
-    html, body {
-      height: 100%;
+    body {
+      height: 100vh;
+      margin: 0;
+      background-color: black;
       overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
-      background: black;
-      color: white;
     }
-
     canvas {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       z-index: -1;
     }
-
     header {
-      background-color: rgba(20, 20, 20, 0.9);
+      background: rgba(0, 0, 0, 0.7);
       padding: 10px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-    }
-
-    .nav-left {
-      display: flex;
       align-items: center;
-    }
-
-    .nav-logo {
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-    }
-
-    .nav-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-
-    .nav-links a {
       color: white;
-      margin-left: 20px;
+    }
+    header a {
+      color: white;
       text-decoration: none;
-      font-weight: bold;
+      margin: 0 10px;
     }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: #00ffcc;
-    }
-
-    main {
-      padding: 40px;
+    .content {
+      z-index: 1;
+      color: white;
+      padding: 20px;
       text-align: center;
     }
-
-    .about-me {
-      margin-top: 50px;
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
     }
-
-    .skills {
-      margin-top: 30px;
+    .navbar a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
     }
-
-    .skill-item {
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-
-    .tools {
-      margin-top: 20px;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-
-    #music-controls {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    #music-toggle {
-      padding: 10px 16px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      background-color: #222;
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    #music-toggle:hover {
-      background-color: #444;
-    }
-
-    #volume-slider-container {
-      margin-top: 15px;
-    }
-
-    #volume-slider {
-      width: 200px;
-      appearance: none;
-      height: 6px;
-      background: #444;
-      outline: none;
-      border-radius: 5px;
-      transition: background 0.3s;
-    }
-
-    #volume-slider::-webkit-slider-thumb,
-    #volume-slider::-moz-range-thumb {
-      appearance: none;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      background: #00ffcc;
-      cursor: pointer;
+    .navbar a:hover {
+      color: #00ff00;
     }
   </style>
 </head>
 <body>
-
-  <!-- Matrix Canvas -->
-  <canvas id="matrix"></canvas>
-
   <header>
-    <div class="nav-left">
-      <img src="logo.png" alt="Logo" class="nav-logo" />
-      <span class="nav-title">Max Dev</span>
-    </div>
-    <div class="nav-links">
+    <div>Max Dev</div>
+    <div class="navbar">
       <a href="index.html">Home</a>
-      <a href="about.html" class="active">About</a>
       <a href="https://github.com/MaxYT5184" target="_blank">GitHub</a>
       <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a>
     </div>
   </header>
 
-  <main>
+  <div class="content">
     <h1>About Me</h1>
-    <p>I'm Max Dev, a passionate developer with experience in various programming languages and tools.</p>
-
-    <div class="about-me">
-      <h2>Skills</h2>
-      <div class="skills">
-        <div class="skill-item">HTML: Advanced</div>
-        <div class="skill-item">CSS: Advanced</div>
-        <div class="skill-item">JavaScript: Advanced</div>
-        <div class="skill-item">Node.js: Advanced</div>
-        <div class="skill-item">PHP: Beginner</div>
-      </div>
-
-      <div class="tools">
-        <h3>Tools</h3>
-        <p>GitHub</p>
-      </div>
-    </div>
-
-    <audio id="bg-music" loop autoplay>
-      <source src="music.mp3" type="audio/mpeg">
-      Your browser does not support background music.
-    </audio>
-
-    <div id="music-controls">
-      <button id="music-toggle">🔊 Toggle Music</button>
-      <div id="volume-slider-container">
-        <input type="range" id="volume-slider" min="1" max="100" value="50" />
-        <label for="volume-slider">Volume</label>
-      </div>
-    </div>
-  </main>
+    <p>I'm Max Dev, a passionate developer with experience in HTML, CSS, JS, Node.js, and more.</p>
+  </div>
 
   <script>
-    // Background Matrix Effect
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
+    // 3D Background using three.js
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
+    // Create a rotating cube as the 3D background
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
 
-    const matrix = "01".split("");
-    const fontSize = 16;
-    const columns = canvas.width / fontSize;
+    camera.position.z = 5;
 
-    const drops = Array(Math.floor(columns)).fill(1);
+    function animate() {
+      requestAnimationFrame(animate);
 
-    function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Rotate the cube
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
 
-      ctx.fillStyle = "#00ffcc";
-      ctx.font = fontSize + "px monospace";
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = matrix[Math.floor(Math.random() * matrix.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-
-        drops[i]++;
-      }
+      renderer.render(scene, camera);
     }
-
-    setInterval(draw, 35);
-
-    // Music logic
-    const music = document.getElementById('bg-music');
-    const toggleBtn = document.getElementById('music-toggle');
-    const volumeSlider = document.getElementById('volume-slider');
-    const volumeContainer = document.getElementById('volume-slider-container');
-
-    toggleBtn.addEventListener('click', () => {
-      if (music.paused) {
-        music.play();
-        toggleBtn.textContent = "🔊 Toggle Music";
-      } else {
-        music.pause();
-        toggleBtn.textContent = "🔇 Toggle Music";
-      }
-    });
-
-    volumeSlider.addEventListener('input', () => {
-      music.volume = volumeSlider.value / 100;
-      clearTimeout(volumeSlider._timeout);
-      volumeSlider._timeout = setTimeout(() => {
-        volumeContainer.style.display = 'none';
-      }, 2000);
-    });
-
-    music.volume = volumeSlider.value / 100;
+    animate();
   </script>
 </body>
 </html>
