@@ -244,13 +244,17 @@ installBtn.addEventListener("click", () => {
   });
 });
 
-        // Check if the site is in maintenance mode and redirect to the 503 page
-    const isMaintenanceMode = false;  // Set this to 'true' during maintenance and 'false' otherwise
+fetch("/version.json")
+  .then(res => res.json())
+  .then(data => {
+      if (data.status === "closed") {
+          window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/errors/503.html";
+      }
+  })
+  .catch(() => {
+      // Optional: fallback error handler
+  });
 
-    if (isMaintenanceMode) {
-        window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/errors/503.html";  // Change this path to where your 503.html is located
-    }
-        
     </script>
 
 </body>
