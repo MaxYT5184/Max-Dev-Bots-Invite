@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Max Dev System Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #38bdf8;
+    }
+    .status-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .status-box {
+      background: #1e293b;
+      border-left: 6px solid #22c55e;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+    }
+    .status-box.down {
+      border-left-color: #ef4444;
+    }
+    .status-title {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .status-message {
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔧 Max Dev System Status Dashboard</h1>
+  <div class="status-container" id="statusContainer">
+    <!-- Status will load here -->
+  </div>
+
+  <script>
+    const webhookURL = 'https://discord.com/api/webhooks/1367930382242152468/H7oKcwuc4sgFGKgZQDpZxpB4CB_Nd8OtdLcasjgdbizL9_dHwQwdMFCL-jQyvU2p2_-l'; // 👈 Replace with your actual Discord webhook URL
+
+    const services = [
+  { name: 'GitHub Page', url: 'https://maxyt5184.github.io/Max-Dev-Bots-Invite/' }
+];
+
+    async function checkStatus(service) {
+      try {
+        const res = await fetch(service.url, { method: 'GET', cache: 'no-store' });
+        return res.ok ? 'Up' : 'Down';
+      } catch {
+        return 'Down';
+      }
+    }
+
+    async function updateStatus() {
+      const container = document.getElementById('statusContainer');
+      container.innerHTML = '';
+
+      for (const service of services) {
+        const status = await checkStatus(service);
+        const box = document.createElement('div');
+        box.className = `status-box ${status === 'Down' ? 'down' : ''}`;
+        box.innerHTML = `
+          <div class="status-title">${service.name}</div>
+          <div class="status-message">${status === 'Up' ? '🟢 Operational' : '🔴 Down'}</div>
+        `;
+        container.appendChild(box);
+
+        if (status === 'Down') {
+          sendDiscordAlert(service.name);
+        }
+      }
+    }
+
+    async function sendDiscordAlert(serviceName) {
+      const embedPayload = {
+        username: "🛠 Max Dev System Status",
+        avatar_url: "https://avatars.githubusercontent.com/u/139154302",
+        embeds: [
+          {
+            title: `❌ ${serviceName} is DOWN`,
+            description: `[View System Status Page](https://maxyt5184.github.io/Max-Dev-Bots-Invite/)`,
+            color: 0xff0000,
+            timestamp: new Date().toISOString(),
+            footer: {
+              text: "System Monitor | Max Dev"
+            },
+            fields: [
+              {
+                name: "Service",
+                value: serviceName,
+                inline: true
+              },
+              {
+                name: "Checked At",
+                value: `<t:${Math.floor(Date.now() / 1000)}:F>`,
+                inline: true
+              }
+            ]
+          }
+        ]
+      };
+
+      try {
+        await fetch(webhookURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(embedPayload)
+        });
+      } catch (err) {
+        console.error('Failed to send Discord webhook:', err);
+      }
+    }
+
+    // Start status check on page load
+    updateStatus();
+    setInterval(updateStatus, 5 * 60 * 1000); // every 5 minutes
+  </script>
+</body>
+</html>
