@@ -17,9 +17,8 @@
       font-family: 'Arial', sans-serif;
       background-color: #111;
       color: white;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
+      overflow-y: scroll;
+      height: 100%;
     }
     header {
       position: fixed;
@@ -48,6 +47,16 @@
     }
     header nav a:hover {
       color: #00ff00;
+    }
+    /* Language dropdown */
+    select {
+      padding: 10px;
+      background-color: #222;
+      border: none;
+      color: white;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
     }
     .content {
       padding-top: 120px;
@@ -104,6 +113,16 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    /* 3D Background */
+    #backgroundCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
   </style>
 </head>
 <body>
@@ -115,18 +134,24 @@
       <a href="https://github.com/AndyTorresDev" target="_blank">GitHub</a>
       <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a>
     </nav>
+    <!-- Language Dropdown -->
+    <select id="languageSelect" onchange="changeLanguage()">
+      <option value="en">English</option>
+      <option value="ar">Arabic</option>
+      <option value="es">Spanish</option>
+    </select>
   </header>
 
   <div class="content">
-    <h1>About Me</h1>
+    <h1 id="pageTitle">About Me</h1>
     <div class="intro">
-      <p>
+      <p id="introText">
         I'm Andy Torres, an advanced software developer with a passion for creating
         innovative and scalable software. My expertise spans full-stack development,
         mobile applications, AI tools, and much more. I enjoy solving complex problems
         and bringing high-performance applications to life.
       </p>
-      <p>
+      <p id="introText2">
         I believe in constantly learning and pushing the boundaries of what I can achieve.
         Every project I take on is an opportunity to grow, and I am always looking for new
         challenges to overcome.
@@ -135,34 +160,34 @@
 
     <!-- Skills Section -->
     <div class="skills">
-      <h2>My Advanced Skills</h2>
+      <h2 id="skillsTitle">My Advanced Skills</h2>
       <div class="skills-section">
         <div class="skill">
-          <h3>HTML</h3>
-          <p>Advanced - I write clean, semantic, and accessible HTML5 code.</p>
+          <h3 id="htmlSkill">HTML</h3>
+          <p id="htmlText">Advanced - I write clean, semantic, and accessible HTML5 code.</p>
         </div>
         <div class="skill">
-          <h3>CSS</h3>
-          <p>Advanced - I design responsive, modern layouts with advanced CSS techniques.</p>
+          <h3 id="cssSkill">CSS</h3>
+          <p id="cssText">Advanced - I design responsive, modern layouts with advanced CSS techniques.</p>
         </div>
         <div class="skill">
-          <h3>JavaScript</h3>
-          <p>Advanced - I build interactive websites with Vanilla JS and frameworks like React.js.</p>
+          <h3 id="jsSkill">JavaScript</h3>
+          <p id="jsText">Advanced - I build interactive websites with Vanilla JS and frameworks like React.js.</p>
         </div>
         <div class="skill">
-          <h3>Node.js</h3>
-          <p>Advanced - I build scalable backends with Node.js and integrate RESTful APIs.</p>
+          <h3 id="nodeSkill">Node.js</h3>
+          <p id="nodeText">Advanced - I build scalable backends with Node.js and integrate RESTful APIs.</p>
         </div>
         <div class="skill">
-          <h3>PHP</h3>
-          <p>Advanced - I create dynamic websites with PHP and frameworks like Laravel.</p>
+          <h3 id="phpSkill">PHP</h3>
+          <p id="phpText">Advanced - I create dynamic websites with PHP and frameworks like Laravel.</p>
         </div>
       </div>
     </div>
 
     <!-- Tools Section -->
     <div class="tools">
-      <h2>Tools I Use</h2>
+      <h2 id="toolsTitle">Tools I Use</h2>
       <div class="tools-section">
         <div class="tool">
           <h3>VS Code</h3>
@@ -210,6 +235,8 @@
     <p>Connect with me on <a href="https://github.com/AndyTorresDev" target="_blank">GitHub</a> or <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a></p>
   </footer>
 
+  <canvas id="backgroundCanvas"></canvas>
+
   <script>
     // Invisible reCAPTCHA callback function
     function onSubmitRecaptcha() {
@@ -217,27 +244,104 @@
     }
 
     // 3D Background using Three.js
+    const canvas = document.getElementById('backgroundCanvas');
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+    scene.background = new THREE.Color(0x111111);
 
-    // Create a more immersive 3D environment
-    const geometry = new THREE.SphereGeometry(5, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
+    // Create more advanced 3D objects (e.g., rotating cubes)
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
 
     camera.position.z = 10;
 
     function animate() {
       requestAnimationFrame(animate);
-      sphere.rotation.x += 0.01;
-      sphere.rotation.y += 0.01;
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
       renderer.render(scene, camera);
     }
     animate();
+
+    // Language change function
+    function changeLanguage() {
+      const selectedLanguage = document.getElementById('languageSelect').value;
+
+      if (selectedLanguage === 'en') {
+        document.getElementById('pageTitle').innerText = "About Me";
+        document.getElementById('introText').innerText = 
+          "I'm Andy Torres, an advanced software developer with a passion for creating innovative and scalable software. My expertise spans full-stack development, mobile applications, AI tools, and much more. I enjoy solving complex problems and bringing high-performance applications to life.";
+        document.getElementById('introText2').innerText = 
+          "I believe in constantly learning and pushing the boundaries of what I can achieve. Every project I take on is an opportunity to grow, and I am always looking for new challenges to overcome.";
+        document.getElementById('skillsTitle').innerText = "My Advanced Skills";
+        document.getElementById('htmlSkill').innerText = "HTML";
+        document.getElementById('cssSkill').innerText = "CSS";
+        document.getElementById('jsSkill').innerText = "JavaScript";
+        document.getElementById('nodeSkill').innerText = "Node.js";
+        document.getElementById('phpSkill').innerText = "PHP";
+        document.getElementById('htmlText').innerText = 
+          "Advanced - I write clean, semantic, and accessible HTML5 code.";
+        document.getElementById('cssText').innerText = 
+          "Advanced - I design responsive, modern layouts with advanced CSS techniques.";
+        document.getElementById('jsText').innerText = 
+          "Advanced - I build interactive websites with Vanilla JS and frameworks like React.js.";
+        document.getElementById('nodeText').innerText = 
+          "Advanced - I build scalable backends with Node.js and integrate RESTful APIs.";
+        document.getElementById('phpText').innerText = 
+          "Advanced - I create dynamic websites with PHP and frameworks like Laravel.";
+        document.getElementById('toolsTitle').innerText = "Tools I Use";
+      } else if (selectedLanguage === 'ar') {
+        document.getElementById('pageTitle').innerText = "من عني";
+        document.getElementById('introText').innerText = 
+          "أنا آندي توريس، مطور برمجيات متقدم يتمتع بشغف لإنشاء برامج مبتكرة وقابلة للتوسع. تمتد خبرتي عبر تطوير الواجهات الأمامية والخلفية، وتطبيقات الهواتف المحمولة، وأدوات الذكاء الاصطناعي، وأكثر من ذلك. أحب حل المشكلات المعقدة وتحقيق التطبيقات عالية الأداء.";
+        document.getElementById('introText2').innerText = 
+          "أعتقد أنه يجب علي دائمًا التعلم ودفع حدود ما يمكنني تحقيقه. كل مشروع أتخذه هو فرصة للنمو، وأنا دائمًا أبحث عن تحديات جديدة لتجاوزها.";
+        document.getElementById('skillsTitle').innerText = "مهاراتي المتقدمة";
+        document.getElementById('htmlSkill').innerText = "HTML";
+        document.getElementById('cssSkill').innerText = "CSS";
+        document.getElementById('jsSkill').innerText = "JavaScript";
+        document.getElementById('nodeSkill').innerText = "Node.js";
+        document.getElementById('phpSkill').innerText = "PHP";
+        document.getElementById('htmlText').innerText = 
+          "متقدم - أكتب كود HTML5 نظيفًا ومرنًا وقابلًا للوصول.";
+        document.getElementById('cssText').innerText = 
+          "متقدم - أصمم تخطيطات استجابة وتقنيات CSS متقدمة.";
+        document.getElementById('jsText').innerText = 
+          "متقدم - أبني مواقع تفاعلية باستخدام JS العادي وأطر العمل مثل React.js.";
+        document.getElementById('nodeText').innerText = 
+          "متقدم - أبني خلفيات قابلة للتوسع باستخدام Node.js وأدمج واجهات RESTful API.";
+        document.getElementById('phpText').innerText = 
+          "متقدم - أخلق مواقع ديناميكية باستخدام PHP وأطر العمل مثل Laravel.";
+        document.getElementById('toolsTitle').innerText = "الأدوات التي أستخدمها";
+      } else if (selectedLanguage === 'es') {
+        document.getElementById('pageTitle').innerText = "Acerca de mí";
+        document.getElementById('introText').innerText = 
+          "Soy Andy Torres, un desarrollador de software avanzado con pasión por crear software innovador y escalable. Mi experiencia abarca desarrollo full-stack, aplicaciones móviles, herramientas de IA y mucho más. Disfruto resolver problemas complejos y llevar aplicaciones de alto rendimiento a la vida.";
+        document.getElementById('introText2').innerText = 
+          "Creo en aprender constantemente y superar los límites de lo que puedo lograr. Cada proyecto que asumo es una oportunidad para crecer, y siempre busco nuevos desafíos para superar.";
+        document.getElementById('skillsTitle').innerText = "Mis habilidades avanzadas";
+        document.getElementById('htmlSkill').innerText = "HTML";
+        document.getElementById('cssSkill').innerText = "CSS";
+        document.getElementById('jsSkill').innerText = "JavaScript";
+        document.getElementById('nodeSkill').innerText = "Node.js";
+        document.getElementById('phpSkill').innerText = "PHP";
+        document.getElementById('htmlText').innerText = 
+          "Avanzado - Escribo código limpio, semántico y accesible en HTML5.";
+        document.getElementById('cssText').innerText = 
+          "Avanzado - Diseño diseños responsivos con técnicas avanzadas de CSS.";
+        document.getElementById('jsText').innerText = 
+          "Avanzado - Creo sitios web interactivos con JS estándar y frameworks como React.js.";
+        document.getElementById('nodeText').innerText = 
+          "Avanzado - Creo backends escalables con Node.js e integro APIs RESTful.";
+        document.getElementById('phpText').innerText = 
+          "Avanzado - Creo sitios web dinámicos con PHP y frameworks como Laravel.";
+        document.getElementById('toolsTitle').innerText = "Herramientas que uso";
+      }
+    }
   </script>
 </body>
 </html>
