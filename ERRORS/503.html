@@ -3,135 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Unavailable - Error 503</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Website Under Development</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f4f4f4;
+            background-color: #f4f4f4;
             color: #333;
-        }
-
-        .error-page {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #e0e0e0;
-            flex-direction: column;
-        }
-
-        .error-container {
             text-align: center;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 500px;
-            transition: transform 0.5s ease-in-out;
+            padding: 50px;
         }
-
-        .error-code {
-            font-size: 100px;
-            font-weight: bold;
-            color: #FF4C4C;
-            margin: 0;
+        h1 {
+            font-size: 50px;
+            color: #FF6347; /* Tomato red color */
         }
-
-        .error-message {
+        p {
             font-size: 20px;
-            color: #333;
-            margin-top: 20px;
+            color: #666;
         }
-
-        .loading {
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .footer {
             margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #4CAF50;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .countdown {
-            font-size: 18px;
-            margin-top: 20px;
-            color: #FF9800;
-        }
-
-        .back-home {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #4CAF50;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .back-home:hover {
-            background-color: #45a049;
+            font-size: 14px;
+            color: #888;
         }
     </style>
 </head>
-<body class="error-page">
-    <div class="error-container">
-        <h1 class="error-code">503</h1>
-        <p class="error-message">We are currently updating our site. Please check back later.</p>
-        <div class="loading">
-            <div class="loader"></div>
+<body>
+    <div class="container">
+        <h1>Website Under Development</h1>
+        <p>Hi! Developer Andy is currently in school working hard on the website.<br>
+        Check back soon for exciting updates and new content.</p>
+        <p>We appreciate your patience during this time!</p>
+        <div class="footer">
+            <p>© 2025 Developer Andy - All rights reserved.</p>
         </div>
-        <p class="countdown">You will be redirected in <span id="countdown">10</span> seconds...</p>
-        <a href="/" class="back-home">Go back to homepage</a>
     </div>
-
-    <script>
-        // Countdown logic for auto redirect
-        let countdownTime = 10;
-        const countdownElement = document.getElementById('countdown');
-
-        function updateCountdown() {
-            if (countdownTime > 0) {
-                countdownElement.textContent = countdownTime;
-                countdownTime--;
-            } else {
-                window.location.href = '/'; // Redirect after countdown reaches zero
-            }
-        }
-
-        // Update the countdown every second
-        setInterval(updateCountdown, 1000);
-
-        // Function to animate the error page with a dynamic effect
-        function animateErrorPage() {
-            const container = document.querySelector('.error-container');
-            setTimeout(() => {
-                container.style.transform = 'scale(1.05)';
-            }, 300);
-            setTimeout(() => {
-                container.style.transform = 'scale(1)';
-            }, 500);
-        }
-
-        // Initiate page animation
-        document.addEventListener("DOMContentLoaded", () => {
-            animateErrorPage();
-        });
-    </script>
 </body>
 </html>
