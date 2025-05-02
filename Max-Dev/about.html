@@ -43,31 +43,48 @@
     .content {
       z-index: 1;
       position: absolute;
-      top: 100px;
+      top: 120px;
       width: 100%;
       text-align: center;
       padding: 20px;
     }
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #00ff00;
     }
     .about {
-      font-size: 1.2em;
+      font-size: 1.3em;
       margin-bottom: 40px;
       text-align: left;
       max-width: 800px;
       margin: 0 auto;
+      line-height: 1.6;
     }
     .about p {
       margin-bottom: 20px;
+    }
+    .language-switcher {
+      margin: 20px 0;
+    }
+    .language-switcher button {
+      background-color: #00ff00;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .language-switcher button:hover {
+      background-color: #007700;
     }
     footer {
       position: absolute;
       bottom: 10px;
       width: 100%;
       text-align: center;
-      font-size: 1em;
+      font-size: 1.2em;
       color: white;
       background-color: rgba(0, 0, 0, 0.8);
       padding: 10px;
@@ -93,11 +110,22 @@
   <div class="content">
     <h1>About Me</h1>
     <div class="about">
-      <p>Hi, I'm Max Dev, a passionate developer who loves creating innovative and useful software. I specialize in web development, mobile apps, and game development. My goal is to always keep learning and improving my skills in various technologies.</p>
+      <p>Hi! I'm Max, a software developer with a passion for creating innovative solutions. I specialize in full-stack web development, mobile app development, and game design.</p>
       
-      <p>With a strong background in JavaScript, HTML, and CSS, I enjoy building interactive websites and applications. I am always eager to take on new challenges and work on projects that push my abilities further.</p>
+      <p>I believe in the power of technology to make the world a better place, and I’m always eager to learn new things and tackle new challenges. Some of my notable projects include:</p>
       
-      <p>When I'm not coding, you can find me playing video games, experimenting with new tech, or collaborating with others on exciting projects!</p>
+      <ul>
+        <li><strong>Web Development:</strong> Building responsive and user-friendly websites.</li>
+        <li><strong>Mobile Apps:</strong> Creating seamless mobile experiences for iOS and Android.</li>
+        <li><strong>AI-Based Tools:</strong> Developing intelligent software to solve complex problems.</li>
+        <li><strong>Game Development:</strong> Crafting immersive and fun gaming experiences.</li>
+      </ul>
+    </div>
+    
+    <div class="language-switcher">
+      <button onclick="switchLanguage('en')">English</button>
+      <button onclick="switchLanguage('es')">Español</button>
+      <button onclick="switchLanguage('ar')">العربية</button>
     </div>
     
     <!-- Invisible reCAPTCHA -->
@@ -113,7 +141,7 @@
   </div>
 
   <footer>
-    <p>Copyrighted, Created By Andy Torres, Your School Advanced Developer</p>
+    <p id="footer-text">Copyrighted, Created By Max Dev</p>
     <p>Get Website Coded For Free, No Scam. I am from Puerto Rico.</p>
   </footer>
 
@@ -125,18 +153,18 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Create a rotating cube as the 3D background
-    const geometry = new THREE.BoxGeometry(2, 2, 2);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+    // Create a more immersive 3D environment
+    const geometry = new THREE.SphereGeometry(5, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true });
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
 
-    camera.position.z = 5;
+    camera.position.z = 10;
 
     function animate() {
       requestAnimationFrame(animate);
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
+      sphere.rotation.x += 0.01;
+      sphere.rotation.y += 0.01;
       renderer.render(scene, camera);
     }
     animate();
@@ -148,6 +176,19 @@
     function onSubmitRecaptcha(token) {
       console.log("Invisible reCAPTCHA success! Token:", token);
       alert("You're verified as human!");
+    }
+
+    // Language Switching Functionality
+    function switchLanguage(language) {
+      const footerText = document.getElementById('footer-text');
+      
+      if(language === 'es') {
+        footerText.innerHTML = 'Copyright, Creado por Max Dev. Crea sitios web gratis, sin engaños. Soy de Puerto Rico.';
+      } else if(language === 'ar') {
+        footerText.innerHTML = 'حقوق الطبع والنشر ، تم إنشاؤه بواسطة Max Dev. أنشئ مواقع الويب مجانًا ، دون احتيال. أنا من بورتو ريكو.';
+      } else {
+        footerText.innerHTML = 'Copyrighted, Created By Max Dev. Get Website Coded For Free, No Scam. I am from Puerto Rico.';
+      }
     }
   </script>
 </body>
