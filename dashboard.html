@@ -40,7 +40,7 @@
     }
 
     async function fetchData() {
-      const appealsResponse = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec");
+      const appealsResponse = await fetch("https://script.google.com/macros/s/AKfycbwwWea5c6vXSbhARt5a0C-InSqyVdMBqY78tPQ0ZdMtTVEFiKs-XKzaFavQ7ukCHnyh/exec");
       const appealsData = await appealsResponse.json();
       const appealsContainer = document.getElementById("appeals-container");
 
