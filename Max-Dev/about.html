@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Me - Max Dev</title>
+  <title>About Andy Torres - Advanced Developer</title>
   <link rel="icon" href="logo.png" type="image/png" />
   <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -14,139 +14,209 @@
       box-sizing: border-box;
     }
     body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
+      font-family: 'Arial', sans-serif;
+      background-color: #111;
       color: white;
       height: 100vh;
       overflow: hidden;
+      position: relative;
     }
     header {
-      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
       padding: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1;
     }
-    header a {
-      color: white;
+    header .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #00ff00;
+    }
+    header nav a {
+      color: #fff;
       text-decoration: none;
-      margin: 0 20px;
-      font-size: 18px;
+      padding: 10px;
+      margin: 0 15px;
+      font-size: 1.1em;
+      transition: color 0.3s;
     }
-    header a:hover {
+    header nav a:hover {
       color: #00ff00;
     }
     .content {
-      z-index: 1;
-      position: absolute;
-      top: 120px;
-      width: 100%;
+      padding-top: 120px;
       text-align: center;
-      padding: 20px;
+      z-index: 1;
+      position: relative;
     }
     h1 {
       font-size: 3em;
       margin-bottom: 20px;
       color: #00ff00;
+      text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
     }
-    .about {
+    .intro, .skills, .tools {
       font-size: 1.3em;
-      margin-bottom: 40px;
-      text-align: left;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
-      line-height: 1.6;
+      line-height: 1.7;
+      margin-bottom: 50px;
     }
-    .about p {
-      margin-bottom: 20px;
+    .skills-section, .tools-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-    .language-switcher {
-      margin: 20px 0;
-    }
-    .language-switcher button {
-      background-color: #00ff00;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      margin: 5px;
-      cursor: pointer;
-    }
-    .language-switcher button:hover {
-      background-color: #007700;
-    }
-    footer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
+    .skill, .tool {
+      background-color: #222;
+      padding: 20px;
+      margin: 15px;
+      border-radius: 10px;
+      width: 200px;
       text-align: center;
-      font-size: 1.2em;
-      color: white;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+    .skill:hover, .tool:hover {
+      transform: scale(1.1);
+    }
+    .footer {
       background-color: rgba(0, 0, 0, 0.8);
-      padding: 10px;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      z-index: 10;
     }
     footer a {
       color: #00ff00;
       text-decoration: none;
       margin: 0 5px;
     }
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <header>
-    <div>Max Dev</div>
-    <div class="navbar">
+    <div class="logo">Andy Torres</div>
+    <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="https://github.com/MaxYT5184" target="_blank">GitHub</a>
+      <a href="https://github.com/AndyTorresDev" target="_blank">GitHub</a>
       <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a>
-    </div>
+    </nav>
   </header>
 
   <div class="content">
     <h1>About Me</h1>
-    <div class="about">
-      <p>Hi! I'm Max, a software developer with a passion for creating innovative solutions. I specialize in full-stack web development, mobile app development, and game design.</p>
-      
-      <p>I believe in the power of technology to make the world a better place, and I’m always eager to learn new things and tackle new challenges. Some of my notable projects include:</p>
-      
-      <ul>
-        <li><strong>Web Development:</strong> Building responsive and user-friendly websites.</li>
-        <li><strong>Mobile Apps:</strong> Creating seamless mobile experiences for iOS and Android.</li>
-        <li><strong>AI-Based Tools:</strong> Developing intelligent software to solve complex problems.</li>
-        <li><strong>Game Development:</strong> Crafting immersive and fun gaming experiences.</li>
-      </ul>
+    <div class="intro">
+      <p>
+        I'm Andy Torres, an advanced software developer with a passion for creating
+        innovative and scalable software. My expertise spans full-stack development,
+        mobile applications, AI tools, and much more. I enjoy solving complex problems
+        and bringing high-performance applications to life.
+      </p>
+      <p>
+        I believe in constantly learning and pushing the boundaries of what I can achieve.
+        Every project I take on is an opportunity to grow, and I am always looking for new
+        challenges to overcome.
+      </p>
     </div>
-    
-    <div class="language-switcher">
-      <button onclick="switchLanguage('en')">English</button>
-      <button onclick="switchLanguage('es')">Español</button>
-      <button onclick="switchLanguage('ar')">العربية</button>
+
+    <!-- Skills Section -->
+    <div class="skills">
+      <h2>My Advanced Skills</h2>
+      <div class="skills-section">
+        <div class="skill">
+          <h3>HTML</h3>
+          <p>Advanced - I write clean, semantic, and accessible HTML5 code.</p>
+        </div>
+        <div class="skill">
+          <h3>CSS</h3>
+          <p>Advanced - I design responsive, modern layouts with advanced CSS techniques.</p>
+        </div>
+        <div class="skill">
+          <h3>JavaScript</h3>
+          <p>Advanced - I build interactive websites with Vanilla JS and frameworks like React.js.</p>
+        </div>
+        <div class="skill">
+          <h3>Node.js</h3>
+          <p>Advanced - I build scalable backends with Node.js and integrate RESTful APIs.</p>
+        </div>
+        <div class="skill">
+          <h3>PHP</h3>
+          <p>Advanced - I create dynamic websites with PHP and frameworks like Laravel.</p>
+        </div>
+      </div>
     </div>
-    
-    <!-- Invisible reCAPTCHA -->
-    <form id="hidden-recaptcha-form">
-      <button id="invisible-recaptcha-btn"
-              class="g-recaptcha"
-              data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
-              data-callback="onSubmitRecaptcha"
-              data-size="invisible"
-              style="display:none;">
-      </button>
-    </form>
+
+    <!-- Tools Section -->
+    <div class="tools">
+      <h2>Tools I Use</h2>
+      <div class="tools-section">
+        <div class="tool">
+          <h3>VS Code</h3>
+          <p>The ultimate code editor for all my development needs.</p>
+        </div>
+        <div class="tool">
+          <h3>Git</h3>
+          <p>Version control to manage my projects and collaborate with others.</p>
+        </div>
+        <div class="tool">
+          <h3>Docker</h3>
+          <p>I use Docker to create consistent environments across different systems.</p>
+        </div>
+        <div class="tool">
+          <h3>GitHub</h3>
+          <p>For hosting code, versioning, and collaborating with developers worldwide.</p>
+        </div>
+        <div class="tool">
+          <h3>Webpack</h3>
+          <p>A bundler and task runner for optimizing web development workflows.</p>
+        </div>
+        <div class="tool">
+          <h3>Figma</h3>
+          <p>I use Figma to create stunning UI/UX designs for my projects.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invisible reCAPTCHA Section -->
+    <div id="recaptcha-container" style="text-align: center;">
+      <form id="hidden-recaptcha-form">
+        <button id="invisible-recaptcha-btn"
+                class="g-recaptcha"
+                data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
+                data-callback="onSubmitRecaptcha"
+                data-size="invisible"
+                style="display:none;">
+        </button>
+      </form>
+    </div>
   </div>
 
-  <footer>
-    <p id="footer-text">Copyrighted, Created By Max Dev</p>
-    <p>Get Website Coded For Free, No Scam. I am from Puerto Rico.</p>
+  <footer class="footer">
+    <p>Copyright © Andy Torres 2025. All rights reserved.</p>
+    <p>Connect with me on <a href="https://github.com/AndyTorresDev" target="_blank">GitHub</a> or <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a></p>
   </footer>
 
   <script>
-    // 3D Background using three.js
+    // Invisible reCAPTCHA callback function
+    function onSubmitRecaptcha() {
+      alert('reCAPTCHA solved!');
+    }
+
+    // 3D Background using Three.js
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
@@ -155,7 +225,7 @@
 
     // Create a more immersive 3D environment
     const geometry = new THREE.SphereGeometry(5, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true });
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
     const sphere = new THREE.Mesh(geometry, material);
     scene.add(sphere);
 
@@ -168,28 +238,6 @@
       renderer.render(scene, camera);
     }
     animate();
-
-    function triggerRecaptcha() {
-      grecaptcha.execute();
-    }
-
-    function onSubmitRecaptcha(token) {
-      console.log("Invisible reCAPTCHA success! Token:", token);
-      alert("You're verified as human!");
-    }
-
-    // Language Switching Functionality
-    function switchLanguage(language) {
-      const footerText = document.getElementById('footer-text');
-      
-      if(language === 'es') {
-        footerText.innerHTML = 'Copyright, Creado por Max Dev. Crea sitios web gratis, sin engaños. Soy de Puerto Rico.';
-      } else if(language === 'ar') {
-        footerText.innerHTML = 'حقوق الطبع والنشر ، تم إنشاؤه بواسطة Max Dev. أنشئ مواقع الويب مجانًا ، دون احتيال. أنا من بورتو ريكو.';
-      } else {
-        footerText.innerHTML = 'Copyrighted, Created By Max Dev. Get Website Coded For Free, No Scam. I am from Puerto Rico.';
-      }
-    }
   </script>
 </body>
 </html>
