@@ -1,0 +1,20 @@
+let deferredPrompt;
+const installBtn = document.getElementById("installDefenda");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = "block";
+});
+
+installBtn.addEventListener("click", () => {
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then((choice) => {
+    if (choice.outcome === "accepted") {
+      console.log("User installed the app");
+    } else {
+      console.log("User dismissed the install prompt");
+    }
+    installBtn.style.display = "none";
+  });
+});
