@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Max Dev - Developer Portfolio</title>
+  <title>Andy Torres - Advanced Developer Portfolio</title>
   <link rel="icon" href="logo.png" type="image/png" />
   <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     * {
       margin: 0;
@@ -67,31 +68,6 @@
       line-height: 1.7;
       margin-bottom: 50px;
     }
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
-      margin: 0 auto;
-      max-width: 1200px;
-      padding: 20px;
-    }
-    .project-card {
-      background-color: #222;
-      border-radius: 10px;
-      padding: 20px;
-      color: white;
-      box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-      transition: transform 0.3s;
-    }
-    .project-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 5px 25px rgba(0, 255, 0, 0.4);
-    }
-    .project-card h3 {
-      margin-bottom: 10px;
-      color: #00ff00;
-      font-size: 1.8em;
-    }
     footer {
       background-color: rgba(0, 0, 0, 0.8);
       color: white;
@@ -128,59 +104,35 @@
     .language-switcher button:hover {
       background-color: #007700;
     }
+    #recaptcha-container {
+      margin: 30px auto;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">Max Dev</div>
+    <div class="logo">Andy Torres</div>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="https://github.com/MaxYT5184" target="_blank">GitHub</a>
+      <a href="https://github.com/AndyTorresDev" target="_blank">GitHub</a>
       <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a>
     </nav>
   </header>
 
   <div class="content">
-    <h1>Welcome to Max Dev's Portfolio</h1>
+    <h1>Welcome to Andy Torres' Developer Portfolio</h1>
     <div class="intro">
       <p>
-        I'm Max, a passionate software developer with a keen interest in creating
-        innovative web applications, mobile apps, and AI tools. I focus on delivering
-        scalable and high-quality solutions for my clients, using cutting-edge technologies.
+        I'm Andy Torres, a passionate software developer with expertise in building
+        complex and scalable software solutions. I specialize in full-stack development, 
+        mobile applications, and AI tools, pushing the boundaries of technology.
       </p>
       <p>
-        My expertise spans across Web Development, Mobile App Development, Game Development,
-        and Artificial Intelligence. I'm constantly learning and growing as a developer.
+        As an advanced developer, I focus on delivering high-performance applications 
+        and continuously seek out new challenges and technologies to learn and implement.
       </p>
-    </div>
-
-    <div class="projects">
-      <div class="project-card">
-        <h3>Web Development</h3>
-        <p>
-          Specializing in responsive websites built with modern frameworks such as React,
-          Angular, and Node.js. I create scalable, high-performance web applications.
-        </p>
-      </div>
-      <div class="project-card">
-        <h3>Mobile Apps</h3>
-        <p>
-          Crafting native mobile applications for both iOS and Android using Flutter, React Native, and other frameworks.
-        </p>
-      </div>
-      <div class="project-card">
-        <h3>AI Tools</h3>
-        <p>
-          I build AI-powered solutions to solve real-world problems, focusing on machine learning, NLP, and data analysis.
-        </p>
-      </div>
-      <div class="project-card">
-        <h3>Game Development</h3>
-        <p>
-          Creating engaging and immersive game experiences using game engines like Unity and Unreal Engine.
-        </p>
-      </div>
     </div>
 
     <div class="language-switcher">
@@ -188,11 +140,16 @@
       <button onclick="switchLanguage('es')">Español</button>
       <button onclick="switchLanguage('ar')">العربية</button>
     </div>
+
+    <!-- reCAPTCHA Section -->
+    <div id="recaptcha-container">
+      <div class="g-recaptcha" data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"></div>
+    </div>
   </div>
 
   <footer>
-    <p id="footer-text">Copyright © Max Dev 2025. All rights reserved.</p>
-    <p>Connect with me on <a href="https://github.com/MaxYT5184" target="_blank">GitHub</a> or <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a></p>
+    <p id="footer-text">Copyright © Andy Torres 2025. All rights reserved.</p>
+    <p>Connect with me on <a href="https://github.com/AndyTorresDev" target="_blank">GitHub</a> or <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a></p>
   </footer>
 
   <script>
@@ -223,11 +180,11 @@
     function switchLanguage(language) {
       const footerText = document.getElementById('footer-text');
       if(language === 'es') {
-        footerText.innerHTML = 'Copyright © Max Dev 2025. Todos los derechos reservados.';
+        footerText.innerHTML = 'Copyright © Andy Torres 2025. Todos los derechos reservados.';
       } else if(language === 'ar') {
-        footerText.innerHTML = 'حقوق الطبع والنشر © Max Dev 2025. جميع الحقوق محفوظة.';
+        footerText.innerHTML = 'حقوق الطبع والنشر © Andy Torres 2025. جميع الحقوق محفوظة.';
       } else {
-        footerText.innerHTML = 'Copyright © Max Dev 2025. All rights reserved.';
+        footerText.innerHTML = 'Copyright © Andy Torres 2025. All rights reserved.';
       }
     }
   </script>
