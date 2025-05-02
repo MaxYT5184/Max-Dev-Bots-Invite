@@ -74,6 +74,24 @@
       justify-content: flex-start;
       width: 100%;
     }
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 1em;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px;
+    }
+    footer a {
+      color: #00ff00;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+    .language-selector {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -102,6 +120,18 @@
     </div>
   </div>
 
+  <footer>
+    <p>Copyrighted, Created By Andy Torres, Your School Advanced Developer</p>
+    <p>Get Website Coded For Free, No Scam. I am from Puerto Rico.</p>
+    <div class="language-selector">
+      <select id="languageSelect" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+  </footer>
+
   <script>
     // 3D Background using three.js
     const scene = new THREE.Scene();
@@ -125,6 +155,23 @@
       renderer.render(scene, camera);
     }
     animate();
+
+    function changeLanguage() {
+      const lang = document.getElementById('languageSelect').value;
+      if (lang === "es") {
+        document.querySelector('h1').innerText = "Hola, soy Max Dev";
+        document.querySelector('.description').innerText = "Un desarrollador apasionado por crear software increíble y aprender nuevas tecnologías.";
+        document.querySelector('h2').innerText = "Habilidades";
+      } else if (lang === "ar") {
+        document.querySelector('h1').innerText = "مرحبًا، أنا ماكس ديف";
+        document.querySelector('.description').innerText = "مطور شغوف ببناء برامج مذهلة وتعلم تقنيات جديدة.";
+        document.querySelector('h2').innerText = "المهارات";
+      } else {
+        document.querySelector('h1').innerText = "Hi, I'm Max Dev";
+        document.querySelector('.description').innerText = "A passionate developer focused on building amazing software and learning new technologies.";
+        document.querySelector('h2').innerText = "Skills";
+      }
+    }
   </script>
 </body>
 </html>
