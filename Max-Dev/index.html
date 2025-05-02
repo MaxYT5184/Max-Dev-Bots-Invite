@@ -2,21 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Max Dev - Developer Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Max Dev - Home</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="icon" href="logo.png" type="image/png" />
 </head>
 <body>
-  <div class="background"></div>
-  <div class="container">
-    <img src="logo.png" alt="Max Dev Logo" class="profile" />
-    <h1>Hi! I'm <span class="highlight">Max Dev</span></h1>
-    <h2 class="animated-role">Role-player</h2>
-    <audio id="bg-music" src="background.mp3" loop></audio>
-    <button id="playMusic">Play Background Music</button>
-  </div>
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">
+        <img src="logo.png" alt="Logo" class="nav-logo" />
+        <span class="nav-title">Max Dev</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://github.com/YOUR_USERNAME" target="_blank">GitHub</a>
+        <a href="https://discord.com/users/YOUR_DISCORD_ID" target="_blank">Discord</a>
+      </div>
+    </nav>
+  </header>
 
-  <script src="script.js"></script>
+  <main class="hero">
+    <h1>Hi, I'm <span class="highlight">Max Dev</span></h1>
+    <h2 class="role-rotate"><span id="role">Developer</span></h2>
+    <audio id="bg-music" loop autoplay>
+      <source src="music.mp3" type="audio/mpeg">
+      Your browser does not support background music.
+    </audio>
+    <button id="music-toggle">🔊 Toggle Music</button>
+  </main>
+
+  <script>
+    // Role rotator
+    const roles = ["Developer", "Role-player", "Coder", "Builder"];
+    let i = 0;
+    setInterval(() => {
+      document.getElementById("role").textContent = roles[i % roles.length];
+      i++;
+    }, 2000);
+
+    // Music toggle
+    const music = document.getElementById('bg-music');
+    const toggleBtn = document.getElementById('music-toggle');
+    toggleBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        toggleBtn.textContent = "🔊 Toggle Music";
+      } else {
+        music.pause();
+        toggleBtn.textContent = "🔇 Toggle Music";
+      }
+    });
+  </script>
 </body>
 </html>
