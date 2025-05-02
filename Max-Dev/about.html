@@ -13,48 +13,61 @@
       box-sizing: border-box;
     }
     body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
       height: 100vh;
-      margin: 0;
-      background-color: black;
       overflow: hidden;
     }
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
     header {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 10px 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: white;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1;
     }
     header a {
       color: white;
       text-decoration: none;
-      margin: 0 10px;
+      margin: 0 20px;
+      font-size: 18px;
+    }
+    header a:hover {
+      color: #00ff00;
     }
     .content {
       z-index: 1;
-      color: white;
+      position: absolute;
+      top: 100px;
+      width: 100%;
+      text-align: center;
       padding: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    .description {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+    }
+    .skills {
       text-align: center;
     }
-    .navbar {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
+    .skills ul {
+      list-style: none;
+      padding: 0;
+      font-size: 1.1em;
     }
-    .navbar a {
-      text-decoration: none;
-      color: white;
-      font-size: 18px;
+    .skills li {
+      margin: 10px;
     }
-    .navbar a:hover {
-      color: #00ff00;
+    .skills span {
+      font-weight: bold;
     }
   </style>
 </head>
@@ -63,6 +76,7 @@
     <div>Max Dev</div>
     <div class="navbar">
       <a href="index.html">Home</a>
+      <a href="about.html">About</a>
       <a href="https://github.com/MaxYT5184" target="_blank">GitHub</a>
       <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a>
     </div>
@@ -70,7 +84,15 @@
 
   <div class="content">
     <h1>About Me</h1>
-    <p>I'm Max Dev, a passionate developer with experience in HTML, CSS, JS, Node.js, and more.</p>
+    <p class="description">I'm Max Dev, a passionate developer with experience in creating dynamic websites and applications. I'm always excited to learn new technologies and contribute to the tech community.</p>
+    <h2>Skills</h2>
+    <ul>
+      <li><span>HTML:</span> Advanced</li>
+      <li><span>CSS:</span> Advanced</li>
+      <li><span>JavaScript:</span> Advanced</li>
+      <li><span>Node.js:</span> Advanced</li>
+      <li><span>PHP:</span> Beginner</li>
+    </ul>
   </div>
 
   <script>
@@ -91,11 +113,8 @@
 
     function animate() {
       requestAnimationFrame(animate);
-
-      // Rotate the cube
       cube.rotation.x += 0.01;
       cube.rotation.y += 0.01;
-
       renderer.render(scene, camera);
     }
     animate();
