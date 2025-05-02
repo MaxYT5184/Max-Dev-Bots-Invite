@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Max Dev - Home</title>
+  <title>Max Dev - Developer Portfolio</title>
   <link rel="icon" href="logo.png" type="image/png" />
   <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
   <style>
@@ -13,142 +13,173 @@
       box-sizing: border-box;
     }
     body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
+      font-family: 'Arial', sans-serif;
+      background-color: #111;
       color: white;
       height: 100vh;
       overflow: hidden;
+      position: relative;
     }
     header {
-      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
       padding: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1;
     }
-    header a {
-      color: white;
+    header .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #00ff00;
+    }
+    header nav a {
+      color: #fff;
       text-decoration: none;
-      margin: 0 20px;
-      font-size: 18px;
+      padding: 10px;
+      margin: 0 15px;
+      font-size: 1.1em;
+      transition: color 0.3s;
     }
-    header a:hover {
+    header nav a:hover {
       color: #00ff00;
     }
     .content {
-      z-index: 1;
-      position: absolute;
-      top: 120px;
-      width: 100%;
+      padding-top: 120px;
       text-align: center;
-      padding: 20px;
+      z-index: 1;
+      position: relative;
     }
     h1 {
       font-size: 3em;
       margin-bottom: 20px;
       color: #00ff00;
+      text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
     }
-    .intro-text {
-      font-size: 1.5em;
-      margin-bottom: 30px;
-      max-width: 800px;
+    .intro {
+      font-size: 1.3em;
+      max-width: 900px;
       margin: 0 auto;
-      line-height: 1.6;
+      line-height: 1.7;
+      margin-bottom: 50px;
     }
     .projects {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 30px;
-      margin-top: 50px;
+      margin: 0 auto;
+      max-width: 1200px;
+      padding: 20px;
     }
     .project-card {
-      background-color: #333;
-      padding: 20px;
+      background-color: #222;
       border-radius: 10px;
-      text-align: center;
+      padding: 20px;
       color: white;
-      box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+      transition: transform 0.3s;
+    }
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 5px 25px rgba(0, 255, 0, 0.4);
     }
     .project-card h3 {
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       color: #00ff00;
-    }
-    .language-switcher {
-      margin: 20px 0;
-    }
-    .language-switcher button {
-      background-color: #00ff00;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      margin: 5px;
-      cursor: pointer;
-    }
-    .language-switcher button:hover {
-      background-color: #007700;
+      font-size: 1.8em;
     }
     footer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      font-size: 1.2em;
-      color: white;
       background-color: rgba(0, 0, 0, 0.8);
-      padding: 10px;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      z-index: 10;
     }
     footer a {
       color: #00ff00;
       text-decoration: none;
       margin: 0 5px;
     }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    .language-switcher {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+    .language-switcher button {
+      background-color: #00ff00;
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 16px;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .language-switcher button:hover {
+      background-color: #007700;
+    }
   </style>
 </head>
 <body>
   <header>
-    <div>Max Dev</div>
-    <div class="navbar">
+    <div class="logo">Max Dev</div>
+    <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="https://github.com/MaxYT5184" target="_blank">GitHub</a>
       <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a>
-    </div>
+    </nav>
   </header>
 
   <div class="content">
-    <h1>Welcome to Max Dev's Website</h1>
-    <div class="intro-text">
-      <p>Hi there! I'm Max, a passionate software developer. My focus is on building innovative software solutions across multiple platforms. I specialize in:</p>
-      <ul>
-        <li>Web Development</li>
-        <li>Mobile App Development</li>
-        <li>AI-based Tools</li>
-        <li>Game Development</li>
-      </ul>
-      <p>I'm always eager to explore new technologies and create meaningful experiences for users.</p>
+    <h1>Welcome to Max Dev's Portfolio</h1>
+    <div class="intro">
+      <p>
+        I'm Max, a passionate software developer with a keen interest in creating
+        innovative web applications, mobile apps, and AI tools. I focus on delivering
+        scalable and high-quality solutions for my clients, using cutting-edge technologies.
+      </p>
+      <p>
+        My expertise spans across Web Development, Mobile App Development, Game Development,
+        and Artificial Intelligence. I'm constantly learning and growing as a developer.
+      </p>
     </div>
 
     <div class="projects">
       <div class="project-card">
         <h3>Web Development</h3>
-        <p>Building responsive and scalable websites using modern technologies like HTML, CSS, JavaScript, and Node.js.</p>
+        <p>
+          Specializing in responsive websites built with modern frameworks such as React,
+          Angular, and Node.js. I create scalable, high-performance web applications.
+        </p>
       </div>
       <div class="project-card">
         <h3>Mobile Apps</h3>
-        <p>Creating seamless and functional mobile apps for iOS and Android platforms with Flutter and React Native.</p>
+        <p>
+          Crafting native mobile applications for both iOS and Android using Flutter, React Native, and other frameworks.
+        </p>
       </div>
       <div class="project-card">
         <h3>AI Tools</h3>
-        <p>Developing intelligent software solutions powered by machine learning and AI algorithms.</p>
+        <p>
+          I build AI-powered solutions to solve real-world problems, focusing on machine learning, NLP, and data analysis.
+        </p>
       </div>
       <div class="project-card">
         <h3>Game Development</h3>
-        <p>Designing immersive gaming experiences with modern game engines like Unity and Unreal Engine.</p>
+        <p>
+          Creating engaging and immersive game experiences using game engines like Unity and Unreal Engine.
+        </p>
       </div>
     </div>
 
@@ -160,12 +191,12 @@
   </div>
 
   <footer>
-    <p id="footer-text">Copyrighted, Created By Max Dev</p>
-    <p>Get Website Coded For Free, No Scam. I am from Puerto Rico.</p>
+    <p id="footer-text">Copyright © Max Dev 2025. All rights reserved.</p>
+    <p>Connect with me on <a href="https://github.com/MaxYT5184" target="_blank">GitHub</a> or <a href="https://discord.gg/3VgNFu98vM" target="_blank">Discord</a></p>
   </footer>
 
   <script>
-    // 3D Background using three.js
+    // 3D Background using Three.js
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
@@ -174,7 +205,7 @@
 
     // Create a more immersive 3D environment
     const geometry = new THREE.SphereGeometry(5, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true });
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
     const sphere = new THREE.Mesh(geometry, material);
     scene.add(sphere);
 
@@ -191,13 +222,12 @@
     // Language Switching Functionality
     function switchLanguage(language) {
       const footerText = document.getElementById('footer-text');
-      
       if(language === 'es') {
-        footerText.innerHTML = 'Copyright, Creado por Max Dev. Crea sitios web gratis, sin engaños. Soy de Puerto Rico.';
+        footerText.innerHTML = 'Copyright © Max Dev 2025. Todos los derechos reservados.';
       } else if(language === 'ar') {
-        footerText.innerHTML = 'حقوق الطبع والنشر ، تم إنشاؤه بواسطة Max Dev. أنشئ مواقع الويب مجانًا ، دون احتيال. أنا من بورتو ريكو.';
+        footerText.innerHTML = 'حقوق الطبع والنشر © Max Dev 2025. جميع الحقوق محفوظة.';
       } else {
-        footerText.innerHTML = 'Copyrighted, Created By Max Dev. Get Website Coded For Free, No Scam. I am from Puerto Rico.';
+        footerText.innerHTML = 'Copyright © Max Dev 2025. All rights reserved.';
       }
     }
   </script>
