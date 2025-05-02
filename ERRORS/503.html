@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Unavailable - Error 503</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+
+        .error-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #e0e0e0;
+            flex-direction: column;
+        }
+
+        .error-container {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .error-code {
+            font-size: 100px;
+            font-weight: bold;
+            color: #FF4C4C;
+            margin: 0;
+        }
+
+        .error-message {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-home:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body class="error-page">
+    <div class="error-container">
+        <h1 class="error-code">503</h1>
+        <p class="error-message">We're updating! Please check back later.</p>
+        <p>Our website is currently undergoing maintenance. We apologize for the inconvenience!</p>
+        <p>We'll be back shortly.</p>
+        <a href="/" class="back-home">Go back to homepage</a>
+    </div>
+    <script>
+        // Function to animate the error page with a dynamic effect
+        function animateErrorPage() {
+            const container = document.querySelector('.error-container');
+            setTimeout(() => {
+                container.style.transform = 'scale(1.05)';
+            }, 300);
+            setTimeout(() => {
+                container.style.transform = 'scale(1)';
+            }, 500);
+        }
+
+        // Function to handle maintenance redirection
+        function handleMaintenanceMode() {
+            const maintenanceMessage = document.querySelector('.error-message');
+            if (maintenanceMessage) {
+                setTimeout(() => {
+                    maintenanceMessage.innerHTML += "<br><br>Redirecting to the homepage in 5 seconds...";
+                    setTimeout(() => {
+                        window.location.href = '/'; // Redirect after 5 seconds
+                    }, 5000);
+                }, 2000); // Show the redirect message after 2 seconds
+            }
+        }
+
+        // Initiate page animation and handling logic
+        document.addEventListener("DOMContentLoaded", () => {
+            animateErrorPage();
+            handleMaintenanceMode();
+        });
+    </script>
+</body>
+</html>
