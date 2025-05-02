@@ -245,21 +245,29 @@ installBtn.addEventListener("click", () => {
 });
 
 fetch("/Max-Dev-Bots-Invite/version.json")
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) throw new Error("version.json not found");
+    return res.json();
+  })
   .then(data => {
-    if (data.status === "updating") {
-      window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/ERRORS/503.html";
-    } else if (data.status === "closed") {
-      window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/ERRORS/closed.html";
-    } else {
-      // Status is 'live' or unknown: stay on the page
-      console.log("Site is live. No redirect.");
+    switch (data.status) {
+      case "updating":
+        window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/ERRORS/503.html";
+        break;
+      case "closed":
+        window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/ERRORS/closed.html";
+        break;
+      case "live":
+        console.log("✅ Site is live. No redirect triggered.");
+        break;
+      default:
+        console.warn("⚠️ Unknown status in version.json:", data.status);
     }
   })
-  .catch(error => {
-    console.error("Failed to fetch version.json:", error);
+  .catch(err => {
+    console.error("🚫 Failed to fetch version.json:", err);
+    // Optional: Redirect to a general error page here
   });
-
 
     </script>
 
