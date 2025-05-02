@@ -14,13 +14,14 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: linear-gradient(135deg, #1a73e8, #ff4081);
             color: #fff;
             overflow: hidden;
+            position: relative;
         }
 
         .content {
@@ -31,33 +32,37 @@
         }
 
         h1 {
-            font-size: 100px;
+            font-size: 120px;
             font-weight: bold;
             color: #fff;
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.6);
             margin-bottom: 20px;
+            animation: slideIn 1s ease-out;
         }
 
         p {
             font-size: 18px;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 30px;
         }
 
         .back-btn {
             padding: 12px 25px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
+            background: linear-gradient(135deg, #ff4081, #1a73e8);
+            color: white;
             text-decoration: none;
             font-size: 18px;
-            border: 2px solid #fff;
-            border-radius: 25px;
-            transition: background 0.3s, transform 0.3s;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease-in-out;
+            display: inline-block;
+            margin-top: 20px;
         }
 
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
         }
 
         /* Background effects */
@@ -67,10 +72,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://source.unsplash.com/random') no-repeat center center/cover;
-            filter: blur(8px);
+            background: url('https://source.unsplash.com/1600x900/?nature,technology,city') no-repeat center center/cover;
+            filter: blur(15px) grayscale(70%);
             z-index: 1;
-            animation: zoomIn 10s infinite alternate;
+            animation: zoomIn 10s ease-in-out infinite;
         }
 
         /* Animations */
@@ -85,12 +90,23 @@
             }
         }
 
-        @keyframes zoomIn {
+        @keyframes slideIn {
             0% {
-                transform: scale(1);
+                transform: translateY(-50px);
+                opacity: 0;
             }
             100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            0% {
                 transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1.1);
             }
         }
 
@@ -103,19 +119,24 @@
             padding: 12px 20px;
             font-size: 16px;
             width: 80%;
-            max-width: 500px;
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 400px;
+            border-radius: 50px;
+            border: none;
             background-color: rgba(255, 255, 255, 0.2);
-            color: #fff;
+            color: white;
             outline: none;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .search-bar:focus {
             background-color: rgba(255, 255, 255, 0.3);
             border-color: #fff;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
     </style>
 </head>
@@ -124,12 +145,12 @@
 
     <div class="content">
         <h1>404</h1>
-        <p>Sorry, the page you're looking for doesn't exist.</p>
-        <a href="/" class="back-btn">Go Back Home</a>
+        <p>Oops! The page you're looking for doesn't exist.</p>
+        <a href="https://maxyt5184.github.io/Max-Dev-Bots-Invite" class="back-btn">Go Back Home</a>
 
         <div class="search-container">
             <p>Or try searching:</p>
-            <input type="text" class="search-bar" placeholder="Search...">
+            <input type="text" class="search-bar" placeholder="Search for something...">
         </div>
     </div>
 </body>
