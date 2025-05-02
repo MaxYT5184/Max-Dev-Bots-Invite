@@ -100,10 +100,6 @@
       border: none;
       border-radius: 5px;
     }
-    #recaptcha-container {
-      margin: 30px auto;
-      text-align: center;
-    }
   </style>
 </head>
 <body>
@@ -140,9 +136,17 @@
       </select>
     </div>
 
-    <!-- reCAPTCHA Section -->
-    <div id="recaptcha-container">
-      <div class="g-recaptcha" data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"></div>
+    <!-- Invisible reCAPTCHA Section -->
+    <div id="recaptcha-container" style="text-align: center;">
+      <form id="hidden-recaptcha-form">
+        <button id="invisible-recaptcha-btn"
+                class="g-recaptcha"
+                data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
+                data-callback="onSubmitRecaptcha"
+                data-size="invisible"
+                style="display:none;">
+        </button>
+      </form>
     </div>
   </div>
 
@@ -152,6 +156,11 @@
   </footer>
 
   <script>
+    // Invisible reCAPTCHA callback function
+    function onSubmitRecaptcha() {
+      alert('reCAPTCHA solved!');
+    }
+
     // 3D Background using Three.js
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
