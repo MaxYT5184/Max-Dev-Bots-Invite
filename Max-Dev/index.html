@@ -86,23 +86,19 @@
     footer a:hover {
       text-decoration: underline;
     }
-    .language-switcher {
+    .language-dropdown {
       display: flex;
       justify-content: center;
       margin: 30px 0;
     }
-    .language-switcher button {
+    .language-dropdown select {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
       background-color: #00ff00;
       color: white;
       border: none;
-      padding: 15px;
-      font-size: 16px;
-      margin: 0 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .language-switcher button:hover {
-      background-color: #007700;
+      border-radius: 5px;
     }
     #recaptcha-container {
       margin: 30px auto;
@@ -122,23 +118,26 @@
   </header>
 
   <div class="content">
-    <h1>Welcome to Andy Torres' Developer Portfolio</h1>
+    <h1 id="main-title">Welcome to Andy Torres' Developer Portfolio</h1>
     <div class="intro">
-      <p>
+      <p id="intro-text">
         I'm Andy Torres, a passionate software developer with expertise in building
         complex and scalable software solutions. I specialize in full-stack development, 
         mobile applications, and AI tools, pushing the boundaries of technology.
       </p>
-      <p>
+      <p id="additional-text">
         As an advanced developer, I focus on delivering high-performance applications 
         and continuously seek out new challenges and technologies to learn and implement.
       </p>
     </div>
 
-    <div class="language-switcher">
-      <button onclick="switchLanguage('en')">English</button>
-      <button onclick="switchLanguage('es')">Español</button>
-      <button onclick="switchLanguage('ar')">العربية</button>
+    <!-- Language Dropdown -->
+    <div class="language-dropdown">
+      <select onchange="switchLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="ar">العربية</option>
+      </select>
     </div>
 
     <!-- reCAPTCHA Section -->
@@ -178,12 +177,25 @@
 
     // Language Switching Functionality
     function switchLanguage(language) {
+      const title = document.getElementById('main-title');
+      const introText = document.getElementById('intro-text');
+      const additionalText = document.getElementById('additional-text');
       const footerText = document.getElementById('footer-text');
+      
       if(language === 'es') {
+        title.innerHTML = 'Bienvenido al portafolio de Andy Torres';
+        introText.innerHTML = 'Soy Andy Torres, un desarrollador de software apasionado con experiencia en la construcción de soluciones de software complejas y escalables. Me especializo en desarrollo full-stack, aplicaciones móviles y herramientas de IA, llevando los límites de la tecnología.';
+        additionalText.innerHTML = 'Como desarrollador avanzado, me enfoco en ofrecer aplicaciones de alto rendimiento y busco continuamente nuevos desafíos y tecnologías para aprender e implementar.';
         footerText.innerHTML = 'Copyright © Andy Torres 2025. Todos los derechos reservados.';
       } else if(language === 'ar') {
+        title.innerHTML = 'مرحبًا بك في محفظة Andy Torres';
+        introText.innerHTML = 'أنا Andy Torres ، مطور برامج شغوف ذو خبرة في بناء حلول البرمجيات المعقدة والقابلة للتطوير. أتخصص في تطوير التطبيقات الكاملة ، وتطبيقات الهاتف المحمول ، وأدوات الذكاء الاصطناعي ، وأدفع حدود التكنولوجيا.';
+        additionalText.innerHTML = 'كمطور متقدم ، أركز على تقديم تطبيقات عالية الأداء وأبحث باستمرار عن تحديات وتقنيات جديدة لتعلمها وتنفيذها.';
         footerText.innerHTML = 'حقوق الطبع والنشر © Andy Torres 2025. جميع الحقوق محفوظة.';
       } else {
+        title.innerHTML = 'Welcome to Andy Torres\' Developer Portfolio';
+        introText.innerHTML = 'I\'m Andy Torres, a passionate software developer with expertise in building complex and scalable software solutions. I specialize in full-stack development, mobile applications, and AI tools, pushing the boundaries of technology.';
+        additionalText.innerHTML = 'As an advanced developer, I focus on delivering high-performance applications and continuously seek out new challenges and technologies to learn and implement.';
         footerText.innerHTML = 'Copyright © Andy Torres 2025. All rights reserved.';
       }
     }
