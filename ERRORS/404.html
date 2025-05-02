@@ -23,6 +23,7 @@
             overflow: hidden;
             position: relative;
             cursor: url('https://cdn.jsdelivr.net/gh/omnidan/cursor.css@master/src/assets/cursors/round.cur'), auto;
+            transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
         }
 
         .content {
@@ -178,20 +179,46 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
-        /* Shake effect */
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            50% { transform: translateX(10px); }
-            75% { transform: translateX(-10px); }
-            100% { transform: translateX(0); }
+        .search-results {
+            margin-top: 20px;
+            font-size: 18px;
+            color: white;
         }
 
-        .back-btn:active {
-            animation: shake 0.5s ease;
+        .search-results ul {
+            list-style-type: none;
+            padding-left: 0;
         }
 
-        /* Day/Night Mode Toggle */
+        .search-results li {
+            margin-bottom: 10px;
+        }
+
+        /* Ad section */
+        .ads-section {
+            margin-top: 50px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .ads-section p {
+            font-size: 18px;
+            color: white;
+        }
+
+        /* Night mode styles */
+        body.night-mode {
+            background: linear-gradient(135deg, #2e2e2e, #303030);
+            color: #fff;
+        }
+
+        body.night-mode .back-btn {
+            background: linear-gradient(135deg, #616161, #303030);
+        }
+
+        /* Fast animations for night mode switch */
         .mode-toggle {
             position: absolute;
             top: 10px;
@@ -209,17 +236,6 @@
         .mode-toggle:hover {
             background-color: rgba(255, 255, 255, 0.4);
         }
-
-        /* Night mode styles */
-        body.night-mode {
-            background: linear-gradient(135deg, #2e2e2e, #303030);
-            color: #fff;
-        }
-
-        body.night-mode .back-btn {
-            background: linear-gradient(135deg, #616161, #303030);
-        }
-
     </style>
 </head>
 <body>
@@ -239,7 +255,12 @@
         <div class="search-container">
             <p>Or you can search:</p>
             <input type="text" class="search-bar" placeholder="Search for something..." id="searchInput" oninput="searchFunction()">
-            <div id="searchResults" style="margin-top: 20px; color: white; font-size: 18px;"></div>
+            <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- Ads Section -->
+        <div class="ads-section">
+            <p>Advertisement: <strong>Buy Now! Best Deals on Electronics</strong></p>
         </div>
     </div>
 
