@@ -248,9 +248,9 @@ fetch("/version.json")
   .then(res => res.json())
   .then(data => {
     if (data.status === "updating") {
-      window.location.href = "/errors/503.html";
+      window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/ERRORS/503.html";
     } else if (data.status === "closed") {
-      window.location.href = "/errors/closed.html";
+      window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/ERRORS/closed.html";
     }
   });
 
