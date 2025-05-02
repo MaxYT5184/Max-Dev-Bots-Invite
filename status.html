@@ -32,6 +32,19 @@
       color: #8b949e;
       white-space: pre-line;
     }
+    button {
+      margin-top: 25px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #238636;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2ea043;
+    }
   </style>
 </head>
 <body>
@@ -40,6 +53,7 @@
     <div class="emoji" id="emoji">⚪</div>
     <div class="status-text" id="statusText">Checking status...</div>
     <div class="details" id="details"></div>
+    <button onclick="manualSend()">Send to Discord Now</button>
   </div>
 
   <script>
@@ -50,64 +64,70 @@
       live: {
         emoji: '🟢',
         text: 'Website online.',
-        color: 0x57F287 // green
+        color: 0x57F287
       },
       closed: {
         emoji: '🔴',
         text: 'Website offline.',
-        color: 0xED4245 // red
+        color: 0xED4245
       },
       updating: {
         emoji: '🟡',
         text: 'Website updating.',
-        color: 0xFEE75C // yellow
+        color: 0xFEE75C
       },
       error: {
         emoji: '⚫',
         text: 'Error checking status.',
-        color: 0x2F3136 // dark gray
+        color: 0x2F3136
       }
     };
 
-    async function fetchStatus() {
+    let lastStatus = "error";
+    let lastPing = 0;
+
+    async function fetchStatusAndUpdate(sendToDiscord = true) {
       let ping = 0;
       let status = "error";
 
       try {
         const start = Date.now();
-        const response = await fetch(versionURL + "?t=" + Date.now()); // cache bust
+        const res = await fetch(versionURL + "?t=" + Date.now());
         ping = Date.now() - start;
 
-        if (!response.ok) throw new Error("Fetch failed");
+        if (!res.ok) throw new Error("Failed to fetch");
 
-        const json = await response.json();
+        const json = await res.json();
         status = json.status || "error";
       } catch (e) {
-        console.warn("Error fetching status:", e);
+        console.warn("Status fetch failed", e);
       }
 
+      lastStatus = status;
+      lastPing = ping;
+
       updateDisplay(status, ping);
-      sendEmbedToDiscord(status, ping);
+      if (sendToDiscord) sendEmbedToDiscord(status, ping);
     }
 
     function updateDisplay(status, ping) {
-      const config = statusConfig[status] || statusConfig.error;
+      const cfg = statusConfig[status] || statusConfig.error;
       const time = new Date().toISOString().replace("T", " ").split(".")[0];
 
-      document.getElementById("emoji").textContent = config.emoji;
-      document.getElementById("statusText").textContent = config.text;
+      document.getElementById("emoji").textContent = cfg.emoji;
+      document.getElementById("statusText").textContent = cfg.text;
       document.getElementById("details").textContent =
         `Service Name\nMain Website\nTime (Etc/UTC)\n${time}\nPing\n${ping} ms`;
     }
 
     function sendEmbedToDiscord(status, ping) {
-      const config = statusConfig[status] || statusConfig.error;
+      const cfg = statusConfig[status] || statusConfig.error;
       const time = new Date().toISOString().replace("T", " ").split(".")[0];
 
       const embed = {
-        title: `${config.emoji} ${config.text}`,
-        description: "**Service Name**\nMain Website\n\n**Time (Etc/UTC)**\n" + time + `\n\n**Ping**\n${ping} ms`,
-        color: config.color
+        title: `${cfg.emoji} ${cfg.text}`,
+        description: `**Service Name**\nMain Website\n\n**Time (Etc/UTC)**\n${time}\n\n**Ping**\n${ping} ms`,
+        color: cfg.color
       };
 
       fetch(webhookURL, {
@@ -117,9 +137,14 @@
       }).catch(console.error);
     }
 
-    // Run once now and every 5 minutes
-    fetchStatus();
-    setInterval(fetchStatus, 5 * 60 * 1000);
+    // Manual send button
+    function manualSend() {
+      fetchStatusAndUpdate(true);
+    }
+
+    // Initial run and auto-send every 5 minutes
+    fetchStatusAndUpdate(true);
+    setInterval(() => fetchStatusAndUpdate(true), 5 * 60 * 1000);
   </script>
 
 </body>
