@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DefendaBot Developer Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="login-container">
+    <h2>Developer Login</h2>
+    <input type="password" id="password" placeholder="Enter password">
+    <button onclick="checkPassword()">Login</button>
+    <p id="error-message" style="color:red;"></p>
+  </div>
+
+  <div id="dashboard" style="display: none;">
+    <h1>Welcome to the DefendaBot Developer Dashboard</h1>
+    <div class="section">
+      <h2>Ban Appeals</h2>
+      <div id="appeals-container">Loading...</div>
+    </div>
+    <div class="section">
+      <h2>Applications</h2>
+      <div id="applications-container">Loading...</div>
+    </div>
+  </div>
+
+  <script>
+    const secretPassword = "defendadev2025"; // Change this password
+
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === secretPassword) {
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        fetchData();
+      } else {
+        document.getElementById("error-message").textContent = "Wrong password.";
+      }
+    }
+
+    async function fetchData() {
+      const appealsResponse = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec");
+      const appealsData = await appealsResponse.json();
+      const appealsContainer = document.getElementById("appeals-container");
+
+      appealsData.forEach(entry => {
+        appealsContainer.innerHTML += `<p><strong>User:</strong> ${entry.userID}<br><strong>Status:</strong> ${entry.status}</p><hr>`;
+      });
+
+      // Repeat this if you want to fetch applications from another script
+    }
+  </script>
+</body>
+</html>
