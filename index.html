@@ -251,11 +251,15 @@ fetch("/Max-Dev-Bots-Invite/version.json")
       window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/ERRORS/503.html";
     } else if (data.status === "closed") {
       window.location.href = "https://maxyt5184.github.io/Max-Dev-Bots-Invite/ERRORS/closed.html";
+    } else {
+      // Status is 'live' or unknown: stay on the page
+      console.log("Site is live. No redirect.");
     }
   })
   .catch(error => {
     console.error("Failed to fetch version.json:", error);
   });
+
 
     </script>
 
