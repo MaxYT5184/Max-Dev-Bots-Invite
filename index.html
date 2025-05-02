@@ -113,6 +113,17 @@
         </div>
     </div>
 
+    <div id="devConsole" style="display: none;">
+  <div class="console-header">
+    <h2>⚙️ Developer Console</h2>
+    <button onclick="closeConsole()">Close</button>
+  </div>
+  <div id="consoleOutput">
+    <pre>Welcome to the Developer Console. Type a command.</pre>
+  </div>
+  <input type="text" id="commandInput" placeholder="Enter command..." onkeydown="checkCommand(event)">
+</div>
+
 <form id="hidden-recaptcha-form">
   <button id="invisible-recaptcha-btn"
           class="g-recaptcha"
