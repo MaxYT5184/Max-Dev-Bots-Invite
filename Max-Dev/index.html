@@ -6,7 +6,7 @@
   <title>Max Dev - Developer Profile</title>
   <link rel="icon" href="logo.png" type="image/png" />
   <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     * {
       margin: 0;
@@ -56,19 +56,26 @@
       font-size: 1.2em;
       margin-bottom: 40px;
     }
-    .skills {
+    .projects {
       text-align: center;
     }
-    .skills ul {
+    .projects h2 {
+      margin-bottom: 20px;
+    }
+    .projects ul {
       list-style: none;
       padding: 0;
       font-size: 1.1em;
     }
-    .skills li {
+    .projects li {
       margin: 10px;
     }
-    .skills span {
-      font-weight: bold;
+    .projects a {
+      color: #00ff00;
+      text-decoration: none;
+    }
+    .projects a:hover {
+      color: #fff;
     }
     .navbar {
       display: flex;
@@ -109,27 +116,28 @@
   <div class="content">
     <h1>Hi, I'm Max Dev</h1>
     <p class="description">A passionate developer focused on building amazing software and learning new technologies.</p>
-    <div class="skills">
-      <h2>Skills</h2>
+    
+    <!-- New Projects Section -->
+    <div class="projects">
+      <h2>My Projects</h2>
       <ul>
-        <li><span>HTML:</span> Advanced</li>
-        <li><span>CSS:</span> Advanced</li>
-        <li><span>JavaScript:</span> Advanced</li>
-        <li><span>Node.js:</span> Advanced</li>
-        <li><span>PHP:</span> Beginner</li>
+        <li><a href="project1.html">Project 1: Web Development</a></li>
+        <li><a href="project2.html">Project 2: Mobile App</a></li>
+        <li><a href="project3.html">Project 3: AI-based Tool</a></li>
+        <li><a href="project4.html">Project 4: Game Development</a></li>
       </ul>
     </div>
   </div>
 
   <form id="hidden-recaptcha-form">
-  <button id="invisible-recaptcha-btn"
-          class="g-recaptcha"
-          data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
-          data-callback="onSubmitRecaptcha"
-          data-size="invisible"
-          style="display:none;">
-  </button>
-</form>
+    <button id="invisible-recaptcha-btn"
+            class="g-recaptcha"
+            data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
+            data-callback="onSubmitRecaptcha"
+            data-size="invisible"
+            style="display:none;">
+    </button>
+  </form>
 
   <footer>
     <p>Copyrighted, Created By Andy Torres, Your School Advanced Developer</p>
@@ -172,29 +180,26 @@
       if (lang === "es") {
         document.querySelector('h1').innerText = "Hola, soy Max Dev";
         document.querySelector('.description').innerText = "Un desarrollador apasionado por crear software increíble y aprender nuevas tecnologías.";
-        document.querySelector('h2').innerText = "Habilidades";
+        document.querySelector('h2').innerText = "Proyectos";
       } else if (lang === "ar") {
         document.querySelector('h1').innerText = "مرحبًا، أنا ماكس ديف";
         document.querySelector('.description').innerText = "مطور شغوف ببناء برامج مذهلة وتعلم تقنيات جديدة.";
-        document.querySelector('h2').innerText = "المهارات";
+        document.querySelector('h2').innerText = "المشاريع";
       } else {
         document.querySelector('h1').innerText = "Hi, I'm Max Dev";
         document.querySelector('.description').innerText = "A passionate developer focused on building amazing software and learning new technologies.";
-        document.querySelector('h2').innerText = "Skills";
+        document.querySelector('h2').innerText = "My Projects";
       }
     }
 
-      function triggerRecaptcha() {
-    grecaptcha.execute();
-  }
+    function triggerRecaptcha() {
+      grecaptcha.execute();
+    }
 
-  function onSubmitRecaptcha(token) {
-    console.log("Invisible reCAPTCHA success! Token:", token);
-    alert("You're verified as human!");
-
-    // 👉 You can now proceed with any protected action
-  }
-    
+    function onSubmitRecaptcha(token) {
+      console.log("Invisible reCAPTCHA success! Token:", token);
+      alert("You're verified as human!");
+    }
   </script>
 </body>
 </html>
