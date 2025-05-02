@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Client Sites Hosting Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #38bdf8;
+    }
+    .form-container {
+      background: #1e293b;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .form-container input {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 6px;
+      border: none;
+      background: #334155;
+      color: #f8fafc;
+    }
+    .form-container button {
+      background: #10b981;
+      border: none;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    .form-container button:hover {
+      background: #059669;
+    }
+    .btn-group {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .btn-group button {
+      margin: 0.5rem;
+      background: #3b82f6;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      color: white;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn-group button:hover {
+      background: #2563eb;
+    }
+    .site-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .site-card {
+      background: #1e293b;
+      padding: 1rem;
+      border-radius: 10px;
+      border-left: 6px solid #38bdf8;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+    .site-name {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .site-url {
+      color: #60a5fa;
+    }
+    .notification {
+      text-align: center;
+      color: #facc15;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>📡 Hosted Client Sites Tracker</h1>
+
+  <div class="form-container">
+    <h2>Add New Site</h2>
+    <input type="text" id="siteName" placeholder="Site Name">
+    <input type="url" id="siteURL" placeholder="Site URL">
+    <input type="date" id="siteDate">
+    <button onclick="addSite()">Add Site</button>
+  </div>
+
+  <div class="btn-group">
+    <button onclick="sendHostingUpdates()">🔁 Send Now</button>
+    <button onclick="downloadBackup()">⬇️ Backup</button>
+    <label>
+      <input type="file" onchange="uploadBackup(event)" style="display:none" id="uploadBackupInput" />
+      <button onclick="document.getElementById('uploadBackupInput').click()">⬆️ Restore</button>
+    </label>
+  </div>
+
+  <div id="notification" class="notification"></div>
+  <div class="site-list" id="siteList"></div>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1367961083306053722/CuJijL0LvqRNI68NdBnciIfWMbXxtAWUyMR5aRyxDTOq2Wwm71V47MY0ckqh-fmuuJC4";
+    let hostedSites = JSON.parse(localStorage.getItem("hostedSites")) || [];
+
+    function saveSites() {
+      localStorage.setItem("hostedSites", JSON.stringify(hostedSites));
+    }
+
+    function daysLeft(startDateStr) {
+      const startDate = new Date(startDateStr);
+      const now = new Date();
+      const diffDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+      return Math.max(60 - diffDays, 0);
+    }
+
+    function cleanExpiredSites() {
+      const now = new Date();
+      const oldLength = hostedSites.length;
+      hostedSites = hostedSites.filter(site => {
+        const start = new Date(site.startDate);
+        const diff = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+        return diff <= 60;
+      });
+      const removed = oldLength - hostedSites.length;
+      if (removed > 0) {
+        showNotification(`🗑️ Removed ${removed} expired site(s).`);
+      }
+      saveSites();
+    }
+
+    function addSite() {
+      const name = document.getElementById("siteName").value.trim();
+      const url = document.getElementById("siteURL").value.trim();
+      const date = document.getElementById("siteDate").value;
+
+      if (!name || !url || !date) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      hostedSites.push({ name, url, startDate: date });
+      saveSites();
+      showSites();
+      sendHostingUpdates();
+
+      document.getElementById("siteName").value = '';
+      document.getElementById("siteURL").value = '';
+      document.getElementById("siteDate").value = '';
+    }
+
+    function showSites() {
+      cleanExpiredSites();
+      const container = document.getElementById('siteList');
+      container.innerHTML = '';
+      hostedSites.forEach(site => {
+        const card = document.createElement('div');
+        card.className = 'site-card';
+        card.innerHTML = `
+          <div class="site-name">${site.name}</div>
+          <div><a href="${site.url}" target="_blank" class="site-url">${site.url}</a></div>
+          <div>⏳ ${daysLeft(site.startDate)} days left</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function sendHostingUpdates() {
+      cleanExpiredSites();
+      for (const site of hostedSites) {
+        const left = daysLeft(site.startDate);
+        const payload = {
+          username: "🧾 Site Hosting Tracker",
+          avatar_url: "https://avatars.githubusercontent.com/u/139154302",
+          embeds: [
+            {
+              title: `🌐 ${site.name}`,
+              description: `[Visit Site](${site.url})`,
+              color: left > 10 ? 0x22c55e : (left > 0 ? 0xfacc15 : 0xef4444),
+              fields: [
+                { name: "Hosted URL", value: site.url, inline: false },
+                { name: "Days Left", value: `⏳ ${left} day(s)`, inline: true },
+                { name: "Hosting Ends", value: `<t:${Math.floor((new Date(site.startDate).getTime() + 60*86400000)/1000)}:F>`, inline: true }
+              ],
+              footer: {
+                text: "Free Hosting | Max Dev",
+                icon_url: "https://avatars.githubusercontent.com/u/139154302"
+              },
+              timestamp: new Date().toISOString()
+            }
+          ]
+        };
+
+        await fetch(webhookURL, {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      }
+
+      showSites();
+    }
+
+    function downloadBackup() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(hostedSites, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "hosted_sites_backup.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function uploadBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (Array.isArray(data)) {
+            hostedSites = data;
+            saveSites();
+            showSites();
+            showNotification("✅ Backup restored successfully.");
+          } else {
+            alert("Invalid backup format.");
+          }
+        } catch {
+          alert("Error reading backup file.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function showNotification(msg) {
+      const note = document.getElementById("notification");
+      note.textContent = msg;
+      setTimeout(() => { note.textContent = ''; }, 5000);
+    }
+
+    showSites();
+    setInterval(sendHostingUpdates, 2 * 60 * 1000);
+  </script>
+</body>
+</html>
