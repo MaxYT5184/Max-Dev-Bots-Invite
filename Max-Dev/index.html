@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Max Dev - Developer Profile</title>
+  <title>Max Dev - Home</title>
   <link rel="icon" href="logo.png" type="image/png" />
   <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     * {
       margin: 0;
@@ -43,51 +42,62 @@
     .content {
       z-index: 1;
       position: absolute;
-      top: 100px;
+      top: 120px;
       width: 100%;
       text-align: center;
       padding: 20px;
     }
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #00ff00;
     }
-    .description {
-      font-size: 1.2em;
-      margin-bottom: 40px;
+    .intro-text {
+      font-size: 1.5em;
+      margin-bottom: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
     }
     .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .project-card {
+      background-color: #333;
+      padding: 20px;
+      border-radius: 10px;
       text-align: center;
+      color: white;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
     }
-    .projects h2 {
-      margin-bottom: 20px;
-    }
-    .projects ul {
-      list-style: none;
-      padding: 0;
-      font-size: 1.1em;
-    }
-    .projects li {
-      margin: 10px;
-    }
-    .projects a {
+    .project-card h3 {
+      margin-bottom: 15px;
       color: #00ff00;
-      text-decoration: none;
     }
-    .projects a:hover {
-      color: #fff;
+    .language-switcher {
+      margin: 20px 0;
     }
-    .navbar {
-      display: flex;
-      justify-content: flex-start;
-      width: 100%;
+    .language-switcher button {
+      background-color: #00ff00;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .language-switcher button:hover {
+      background-color: #007700;
     }
     footer {
       position: absolute;
       bottom: 10px;
       width: 100%;
       text-align: center;
-      font-size: 1em;
+      font-size: 1.2em;
       color: white;
       background-color: rgba(0, 0, 0, 0.8);
       padding: 10px;
@@ -96,9 +106,6 @@
       color: #00ff00;
       text-decoration: none;
       margin: 0 5px;
-    }
-    .language-selector {
-      margin-top: 20px;
     }
   </style>
 </head>
@@ -114,41 +121,47 @@
   </header>
 
   <div class="content">
-    <h1>Hi, I'm Max Dev</h1>
-    <p class="description">A passionate developer focused on building amazing software and learning new technologies.</p>
-    
-    <!-- New Projects Section -->
-    <div class="projects">
-      <h2>My Projects</h2>
+    <h1>Welcome to Max Dev's Website</h1>
+    <div class="intro-text">
+      <p>Hi there! I'm Max, a passionate software developer. My focus is on building innovative software solutions across multiple platforms. I specialize in:</p>
       <ul>
-        <li><a href="project1.html">Project 1: Web Development</a></li>
-        <li><a href="project2.html">Project 2: Mobile App</a></li>
-        <li><a href="project3.html">Project 3: AI-based Tool</a></li>
-        <li><a href="project4.html">Project 4: Game Development</a></li>
+        <li>Web Development</li>
+        <li>Mobile App Development</li>
+        <li>AI-based Tools</li>
+        <li>Game Development</li>
       </ul>
+      <p>I'm always eager to explore new technologies and create meaningful experiences for users.</p>
+    </div>
+
+    <div class="projects">
+      <div class="project-card">
+        <h3>Web Development</h3>
+        <p>Building responsive and scalable websites using modern technologies like HTML, CSS, JavaScript, and Node.js.</p>
+      </div>
+      <div class="project-card">
+        <h3>Mobile Apps</h3>
+        <p>Creating seamless and functional mobile apps for iOS and Android platforms with Flutter and React Native.</p>
+      </div>
+      <div class="project-card">
+        <h3>AI Tools</h3>
+        <p>Developing intelligent software solutions powered by machine learning and AI algorithms.</p>
+      </div>
+      <div class="project-card">
+        <h3>Game Development</h3>
+        <p>Designing immersive gaming experiences with modern game engines like Unity and Unreal Engine.</p>
+      </div>
+    </div>
+
+    <div class="language-switcher">
+      <button onclick="switchLanguage('en')">English</button>
+      <button onclick="switchLanguage('es')">Español</button>
+      <button onclick="switchLanguage('ar')">العربية</button>
     </div>
   </div>
 
-  <form id="hidden-recaptcha-form">
-    <button id="invisible-recaptcha-btn"
-            class="g-recaptcha"
-            data-sitekey="6LeiKisrAAAAAIcvoCvbv03Zx7VRfXIAVYzAtRwt"
-            data-callback="onSubmitRecaptcha"
-            data-size="invisible"
-            style="display:none;">
-    </button>
-  </form>
-
   <footer>
-    <p>Copyrighted, Created By Andy Torres, Your School Advanced Developer</p>
+    <p id="footer-text">Copyrighted, Created By Max Dev</p>
     <p>Get Website Coded For Free, No Scam. I am from Puerto Rico.</p>
-    <div class="language-selector">
-      <select id="languageSelect" onchange="changeLanguage()">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="ar">العربية</option>
-      </select>
-    </div>
   </footer>
 
   <script>
@@ -159,46 +172,33 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Create a rotating cube as the 3D background
-    const geometry = new THREE.BoxGeometry(2, 2, 2);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+    // Create a more immersive 3D environment
+    const geometry = new THREE.SphereGeometry(5, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true });
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
 
-    camera.position.z = 5;
+    camera.position.z = 10;
 
     function animate() {
       requestAnimationFrame(animate);
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
+      sphere.rotation.x += 0.01;
+      sphere.rotation.y += 0.01;
       renderer.render(scene, camera);
     }
     animate();
 
-    function changeLanguage() {
-      const lang = document.getElementById('languageSelect').value;
-      if (lang === "es") {
-        document.querySelector('h1').innerText = "Hola, soy Max Dev";
-        document.querySelector('.description').innerText = "Un desarrollador apasionado por crear software increíble y aprender nuevas tecnologías.";
-        document.querySelector('h2').innerText = "Proyectos";
-      } else if (lang === "ar") {
-        document.querySelector('h1').innerText = "مرحبًا، أنا ماكس ديف";
-        document.querySelector('.description').innerText = "مطور شغوف ببناء برامج مذهلة وتعلم تقنيات جديدة.";
-        document.querySelector('h2').innerText = "المشاريع";
+    // Language Switching Functionality
+    function switchLanguage(language) {
+      const footerText = document.getElementById('footer-text');
+      
+      if(language === 'es') {
+        footerText.innerHTML = 'Copyright, Creado por Max Dev. Crea sitios web gratis, sin engaños. Soy de Puerto Rico.';
+      } else if(language === 'ar') {
+        footerText.innerHTML = 'حقوق الطبع والنشر ، تم إنشاؤه بواسطة Max Dev. أنشئ مواقع الويب مجانًا ، دون احتيال. أنا من بورتو ريكو.';
       } else {
-        document.querySelector('h1').innerText = "Hi, I'm Max Dev";
-        document.querySelector('.description').innerText = "A passionate developer focused on building amazing software and learning new technologies.";
-        document.querySelector('h2').innerText = "My Projects";
+        footerText.innerHTML = 'Copyrighted, Created By Max Dev. Get Website Coded For Free, No Scam. I am from Puerto Rico.';
       }
-    }
-
-    function triggerRecaptcha() {
-      grecaptcha.execute();
-    }
-
-    function onSubmitRecaptcha(token) {
-      console.log("Invisible reCAPTCHA success! Token:", token);
-      alert("You're verified as human!");
     }
   </script>
 </body>
