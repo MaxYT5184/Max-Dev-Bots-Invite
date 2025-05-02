@@ -6,16 +6,29 @@
   <title>Max Dev - Home</title>
   <link rel="icon" href="logo.png" type="image/png" />
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
-      background: #121212;
+      background: black;
       color: white;
     }
 
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
     header {
-      background-color: #1e1e1e;
+      background-color: rgba(20, 20, 20, 0.9);
       padding: 10px 20px;
       display: flex;
       align-items: center;
@@ -47,11 +60,11 @@
 
     .nav-links a:hover,
     .nav-links a.active {
-      color: #ff6b6b;
+      color: #00ffcc;
     }
 
     .hero {
-      height: 80vh;
+      height: calc(100vh - 60px);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -65,12 +78,12 @@
     }
 
     .highlight {
-      color: #ff6b6b;
+      color: #00ffcc;
     }
 
     .role-rotate {
       font-size: 2rem;
-      color: #00ffd5;
+      color: #ff6b6b;
       animation: fadeIn 1s ease-in-out;
     }
 
@@ -113,25 +126,21 @@
       transition: background 0.3s;
     }
 
-    #volume-slider::-webkit-slider-thumb {
+    #volume-slider::-webkit-slider-thumb,
+    #volume-slider::-moz-range-thumb {
       appearance: none;
       width: 15px;
       height: 15px;
       border-radius: 50%;
-      background: #ff6b6b;
-      cursor: pointer;
-    }
-
-    #volume-slider::-moz-range-thumb {
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      background: #ff6b6b;
+      background: #00ffcc;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
+
+  <!-- Matrix Canvas -->
+  <canvas id="matrix"></canvas>
 
   <header>
     <div class="nav-left">
@@ -165,8 +174,42 @@
   </main>
 
   <script>
-    // Rotate roles
-    const roles = ["Developer", "Role-player", "Coder", "Builder"];
+    // Background Matrix Effect
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const matrix = "01".split("");
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#00ffcc";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 35);
+
+    // Role rotation
+    const roles = ["Developer", "Role-player", "Full Stack Dev", "UI Designer"];
     let i = 0;
     setInterval(() => {
       document.getElementById("role").textContent = roles[i % roles.length];
@@ -190,17 +233,13 @@
     });
 
     volumeSlider.addEventListener('input', () => {
-      const volumeValue = volumeSlider.value / 100;
-      music.volume = volumeValue;
-
-      // Hide volume control after 2 seconds
+      music.volume = volumeSlider.value / 100;
       clearTimeout(volumeSlider._timeout);
       volumeSlider._timeout = setTimeout(() => {
         volumeContainer.style.display = 'none';
       }, 2000);
     });
 
-    // Initial volume
     music.volume = volumeSlider.value / 100;
   </script>
 </body>
