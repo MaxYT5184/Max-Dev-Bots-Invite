@@ -69,6 +69,24 @@
     .skills span {
       font-weight: bold;
     }
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 1em;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px;
+    }
+    footer a {
+      color: #00ff00;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+    .language-selector {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -95,6 +113,18 @@
     </ul>
   </div>
 
+  <footer>
+    <p>Copyrighted, Created By Andy Torres, Your School Advanced Developer</p>
+    <p>Get Website Coded For Free, No Scam. I am from Puerto Rico.</p>
+    <div class="language-selector">
+      <select id="languageSelect" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+  </footer>
+
   <script>
     // 3D Background using three.js
     const scene = new THREE.Scene();
@@ -118,6 +148,23 @@
       renderer.render(scene, camera);
     }
     animate();
+
+    function changeLanguage() {
+      const lang = document.getElementById('languageSelect').value;
+      if (lang === "es") {
+        document.querySelector('h1').innerText = "Sobre mí";
+        document.querySelector('.description').innerText = "Soy Max Dev, un desarrollador apasionado con experiencia en la creación de sitios web dinámicos y aplicaciones. Siempre estoy emocionado de aprender nuevas tecnologías y contribuir a la comunidad tecnológica.";
+        document.querySelector('h2').innerText = "Habilidades";
+      } else if (lang === "ar") {
+        document.querySelector('h1').innerText = "من أنا";
+        document.querySelector('.description').innerText = "أنا Max Dev، مطور شغوف ولدي خبرة في إنشاء مواقع الويب الديناميكية والتطبيقات. دائمًا ما أكون متحمسًا لتعلم تقنيات جديدة والمساهمة في المجتمع التكنولوجي.";
+        document.querySelector('h2').innerText = "المهارات";
+      } else {
+        document.querySelector('h1').innerText = "About Me";
+        document.querySelector('.description').innerText = "I'm Max Dev, a passionate developer with experience in creating dynamic websites and applications. I'm always excited to learn new technologies and contribute to the tech community.";
+        document.querySelector('h2').innerText = "Skills";
+      }
+    }
   </script>
 </body>
 </html>
