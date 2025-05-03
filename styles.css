@@ -10,6 +10,7 @@ body {
     align-items: center;
     text-align: center;
     overflow-x: hidden;
+    transition: background 0.5s ease; /* Smooth transition for background color */
 }
 
 body::-webkit-scrollbar {
@@ -39,24 +40,26 @@ nav {
     gap: 20px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease; /* Add smooth background transition */
 }
 
 .nav-link {
     color: #ffffff;
     text-decoration: none;
-    font-size: 1rem; /* Use rem for scalability */
+    font-size: 1rem;
     font-weight: 500;
-    padding: 0.625rem 1rem; /* Use rem for spacing */
+    padding: 0.625rem 1rem;
     border-radius: 0.5rem;
-    transition: background 0.3s, color 0.3s, transform 0.2s;
+    transition: background 0.3s, color 0.3s, transform 0.3s ease; /* Smooth transition */
 }
 
 .nav-link:hover {
     background: rgba(88, 101, 242, 0.2);
     color: #ffcc00;
-    transform: scale(1.05);
+    transform: scale(1.05) translateY(-2px); /* Add slight lift on hover */
 }
 
+/* Discord Button */
 .discord-btn {
     background: linear-gradient(135deg, #7289da, #5865f2);
     color: #fff;
@@ -100,7 +103,7 @@ nav {
     border-radius: 1.25rem;
     padding: 2.5rem;
     width: 85%;
-    margin-top: 7.5rem; /* Convert to rem */
+    margin-top: 7.5rem;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
 }
@@ -110,11 +113,16 @@ nav {
 }
 
 .profile-img {
-    width: 8.125rem; /* Converted to rem */
+    width: 8.125rem;
     height: 8.125rem;
     border-radius: 50%;
-    border: 0.1875rem solid #ffcc00; /* Border in rem */
+    border: 0.1875rem solid #ffcc00;
     box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.05); /* Add scale on hover */
 }
 
 /* Bots Section */
@@ -122,21 +130,22 @@ nav {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 3.125rem; /* Convert to rem */
-    margin-top: 2.5rem; /* Convert to rem */
+    gap: 3.125rem;
+    margin-top: 2.5rem;
 }
 
 .bot-card {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 1.25rem;
     padding: 1.875rem;
-    width: 20rem; /* Set width to rem for better control */
+    width: 20rem;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    transition: transform 0.4s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smooth transform and shadow */
 }
 
 .bot-card:hover {
     transform: scale(1.08) rotate(1deg);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); /* Add more shadow on hover */
 }
 
 .bot-img {
@@ -144,6 +153,11 @@ nav {
     height: 7.5rem;
     border-radius: 50%;
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+    transition: transform 0.4s ease;
+}
+
+.bot-img:hover {
+    transform: scale(1.1); /* Slightly scale the image on hover */
 }
 
 /* Invite Button */
@@ -166,7 +180,7 @@ nav {
 
 /* Report Section */
 .report-container {
-    max-width: 40rem; /* Set max width to rem */
+    max-width: 40rem;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     padding: 2.5rem;
@@ -183,7 +197,7 @@ form {
 
 input, textarea {
     width: 100%;
-    padding: 0.9375rem; /* Convert to rem */
+    padding: 0.9375rem;
     border: none;
     border-radius: 0.625rem;
     background: rgba(255, 255, 255, 0.15);
