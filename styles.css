@@ -228,7 +228,7 @@ button:hover {
     transform: translateY(-2px) scale(1.05);
 }
 
-/* Refined Footer */
+/* Footer Links and Socials */
 footer {
     background: linear-gradient(to bottom, rgba(31, 31, 31, 0.95), rgba(20, 20, 20, 0.85));
     padding: 1rem 1.5rem;
@@ -244,35 +244,37 @@ footer {
     z-index: 1;
 }
 
-footer::after {
-    content: '';
-    display: block;
-    height: 15px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), transparent);
-    margin-top: -5px;
-    pointer-events: none;
+footer .footer-links {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
 }
 
-footer a {
-    color: #ffffff;
-    margin: 0 0.5rem;
+footer .footer-links a {
+    color: #fff;
     text-decoration: none;
-    font-weight: 500;
+    margin: 0 0.5rem;
     transition: color 0.3s ease;
 }
 
-footer a:hover {
+footer .footer-links a:hover {
     color: #ffcc00;
 }
 
-/* Discord Icon in Footer */
-.discord-footer-img {
+footer .footer-socials {
+    margin-top: 1rem;
+}
+
+footer .footer-socials p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+footer .discord-footer-img {
     width: 2.2rem;
     height: 2.2rem;
-    margin-top: 0.3rem;
     transition: transform 0.3s ease;
 }
 
-.discord-footer-img:hover {
+footer .discord-footer-img:hover {
     transform: scale(1.2) rotate(8deg);
 }
