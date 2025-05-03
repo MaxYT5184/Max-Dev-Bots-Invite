@@ -1,0 +1,9 @@
+# Allow all crawlers to access everything
+User-agent: *
+Disallow:
+
+# Disallow access to certain parts of the website if needed
+# Example: Disallow: /private/
+
+# If you want to include a sitemap (optional)
+Sitemap: https://maxyt5184.github.io/Max-Dev-Bots-Invite/sitemap.xml
