@@ -20,7 +20,7 @@
       color: white;
       border-radius: 5px;
       cursor: pointer;
-      margin: 10px 0;
+      margin: 10px 10px 0 0;
     }
     button:hover {
       background-color: #388e3c;
@@ -30,16 +30,18 @@
 <body>
 
   <h1>📦 Super Cheap Hosting Plans</h1>
-  <button onclick="sendPlansToDiscord()">📤 Send Plans to Discord</button>
+  <button onclick="sendSitePlans()">📤 Send Website Hosting Plans</button>
+  <button onclick="sendBotHosting()">🤖 Send Discord Bot Hosting Plan</button>
 
   <script>
-    const webhookURL = "https://discord.com/api/webhooks/1368329622802006047/YwJGjEd1bfQdxsru9L2v6gyXpigVWD3L_1kOI6lSEYm5bySOWvxfUnieznwPQwGR8Xx4"; // Replace with your actual webhook URL
+    const sitePlansWebhook = "https://discord.com/api/webhooks/1368329622802006047/YwJGjEd1bfQdxsru9L2v6gyXpigVWD3L_1kOI6lSEYm5bySOWvxfUnieznwPQwGR8Xx4"; // replace with real webhook
+    const botPlansWebhook = "https://discord.com/api/webhooks/1368335956364755015/SkqCjcWzXL6wUJaYwX6v4sbkfa_-msvPav5axTI9sZq4ALO6j7g7txO7hrySPl2gvBzB"; // replace with real bot webhook
 
-    function sendPlansToDiscord() {
+    function sendSitePlans() {
       const embed = {
         username: "📡 Hosting Bot",
         embeds: [{
-          title: "💻 Hosting Plans - Super Cheap!",
+          title: "💻 Website Hosting Plans - Super Cheap!",
           color: 3066993,
           fields: [
             {
@@ -68,45 +70,63 @@
             },
             {
               name: "💰 10 Month Hosting – $6",
-              value: "- ✅ Everything above\n- 🤖 1 Free Discord Bot Hosted (1 Week)"
-            },
-            {
-              name: "💰 11 Month Hosting – $7",
-              value: "- ✅ Everything above\n- 🌐 Custom Site Icon"
-            },
-            {
-              name: "💰 12 Month Hosting – $8",
-              value: "- ✅ Everything above\n- ⚡ Priority Support"
+              value: "- ✅ Everything above\n- 🤖 1 Free Discord Bot Hosting (1 Week)\n- ✅ Slash + Prefix Commands"
             },
             {
               name: "🏆 1 Year Hosting – $10",
-              value: "- ✅ Everything above\n- 🌍 Free Domain\n- 🤖 Bot Hosting (1 Month)"
+              value: "- ✅ Everything above\n- 🌍 Free Domain\n- 🤖 1 Free Bot Hosted (1 Month)\n- 🔁 24/7 Online\n- 🛠️ Custom Bot Setup"
             },
             {
-              name: "💸 How to Buy (Cash App)",
-              value: "**Send payment to Cash App: `$defendabot`**\n\nAfter sending, DM this info:\n- Discord Username\n- Your Name\n- Email\n- Website Name\n\n📩 You will receive your hosting setup in 24 hours or less!"
+              name: "💸 Buy via Cash App",
+              value: "**Send to: `$yourcashtag`**\nDM this info after payment:\n- Discord Username\n- Name\n- Email\n- Website Name"
             }
           ],
-          footer: {
-            text: "Thank you for choosing our hosting! 🚀"
-          },
+          footer: { text: "Thank you for choosing our hosting! 🚀" },
           timestamp: new Date()
         }]
       };
 
-      fetch(webhookURL, {
+      fetch(sitePlansWebhook, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(embed)
-      })
-      .then(res => {
-        if (res.ok) {
-          alert("✅ Embed sent to Discord!");
-        } else {
-          alert("❌ Failed to send. Check your webhook URL.");
-        }
+      }).then(res => {
+        alert(res.ok ? "✅ Website Hosting embed sent!" : "❌ Failed to send.");
+      });
+    }
+
+    function sendBotHosting() {
+      const embed = {
+        username: "🤖 Bot Hosting",
+        embeds: [{
+          title: "🤖 Discord Bot Hosting Plans",
+          color: 3447003,
+          description: "**Super Affordable Bot Hosting**\nIncludes Slash + Prefix Commands, 24/7 Uptime, Custom Setup!",
+          fields: [
+            {
+              name: "💰 10 Month Website Plan – Bonus",
+              value: "- ✅ 1 Week Discord Bot Hosting\n- ✅ Slash Commands\n- ✅ Prefix Commands\n- ✅ 24/7 Online"
+            },
+            {
+              name: "🏆 1 Year Website Plan – Bonus",
+              value: "- ✅ 1 Month Bot Hosting\n- ✅ Full Setup Support\n- ✅ Slash + Prefix\n- ✅ 24/7 Hosting\n- ✅ Uptime Monitoring"
+            },
+            {
+              name: "💸 Buy via Cash App",
+              value: "**Send to: `$yourcashtag`**\nDM after payment with:\n- Discord Username\n- Email\n- Bot Name\n- Preferred Prefix\n- Slash Command Names"
+            }
+          ],
+          footer: { text: "Let’s make your bot go live! 🟢" },
+          timestamp: new Date()
+        }]
+      };
+
+      fetch(botPlansWebhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(embed)
+      }).then(res => {
+        alert(res.ok ? "✅ Bot Hosting embed sent!" : "❌ Failed to send.");
       });
     }
   </script>
