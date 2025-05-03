@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Super Cheap Hosting Plans</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #222;
+    }
+    .plan {
+      border: 1px solid #ccc;
+      border-left: 8px solid #4caf50;
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #388e3c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💻 Hosting Plans</h1>
+
+  <button onclick="sendEmbedToDiscord()">📦 Send All Plans to Discord</button>
+
+  <div id="plans"></div>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1368329622802006047/YwJGjEd1bfQdxsru9L2v6gyXpigVWD3L_1kOI6lSEYm5bySOWvxfUnieznwPQwGR8Xx4"; // <-- Replace this with your webhook
+
+    const plans = [
+      { months: 2, price: "FREE", features: ["No login/signup", "No Auth", "No Database", "No reCAPTCHA"] },
+      { months: 3, price: "$1", features: ["No login/signup", "No Auth", "No Database", "Yes reCAPTCHA"] },
+      { months: 4, price: "$2", features: ["Yes login/signup", "Yes Auth", "Yes Database", "Yes reCAPTCHA"] },
+      { months: 5, price: "$3", features: ["Yes login/signup", "Yes Auth", "Yes Database", "Yes reCAPTCHA", "Footer & Banner"] },
+      { months: 6, price: "$4", features: ["Yes login/signup", "Yes Auth", "Yes Database", "Yes reCAPTCHA", "Custom Footer & Custom Banner"] },
+      { months: 8, price: "$5", features: ["Yes login/signup", "Yes Auth", "Yes Database", "Yes reCAPTCHA", "Custom Footer & Custom Banner", "Working Contact Page"] },
+      { months: 10, price: "$6", features: ["Yes login/signup", "Yes Auth", "Yes Database", "Yes reCAPTCHA", "Custom Footer & Custom Banner", "Working Contact Page", "One Free Discord Bot Hosted for 1 Week"] },
+      { months: 11, price: "$7", features: ["Custom Site Icon", "Everything above"] },
+      { months: 12, price: "$8", features: ["Priority Support", "Everything above"] },
+      { months: 12, price: "$10", title: "1 Year", features: ["All Features", "Free Domain", "Bot Hosting (1 Month)"] }
+    ];
+
+    const plansContainer = document.getElementById("plans");
+
+    plans.forEach(plan => {
+      const div = document.createElement("div");
+      div.className = "plan";
+      div.innerHTML = `
+        <strong>${plan.title || plan.months + " Month"} Hosting – ${plan.price}</strong><br>
+        <ul>${plan.features.map(f => `<li>${f}</li>`).join("")}</ul>
+        <button onclick='sendToDiscord(${JSON.stringify(JSON.stringify(plan))})'>📤 Send to Discord</button>
+      `;
+      plansContainer.appendChild(div);
+    });
+
+    function sendToDiscord(jsonData) {
+      const plan = JSON.parse(jsonData);
+      const message = {
+        username: "Hosting Bot",
+        embeds: [{
+          title: `${plan.title || plan.months + " Month"} Hosting Plan – ${plan.price}`,
+          color: 5763719,
+          fields: plan.features.map(feature => ({
+            name: "➤",
+            value: feature,
+            inline: false
+          })),
+          footer: {
+            text: "Hosting Service"
+          }
+        }]
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(message)
+      })
+      .then(res => {
+        if (res.ok) alert("Sent to Discord!");
+        else alert("Failed to send.");
+      });
+    }
+
+    function sendEmbedToDiscord() {
+      const embed = {
+        username: "Hosting Plans Bot",
+        embeds: [{
+          title: "💡 Super Cheap Hosting Plans",
+          color: 3447003,
+          description: `
+**2 Month – FREE**
+• No login/signup
+• No Auth, No DB, No CAPTCHA
+
+**3 Month – $1**
+• No login/signup
+• CAPTCHA only
+
+**4 Month – $2**
+• Login/signup, Auth, DB, CAPTCHA
+
+**5 Month – $3**
+• All above + Footer & Banner
+
+**6 Month – $4**
+• + Custom Footer & Banner
+
+**8 Month – $5**
+• + Contact Page
+
+**10 Month – $6**
+• + Discord Bot (1 Week)
+
+**11 Month – $7**
+• + Custom Site Icon
+
+**12 Month – $8**
+• + Priority Support
+
+**1 Year – $10**
+• All Features + Domain + Bot Hosting (1 Month)
+          `,
+          footer: { text: "Sent from Hosting Page" }
+        }]
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(embed)
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Embed sent to Discord!");
+        } else {
+          alert("Failed to send embed.");
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
